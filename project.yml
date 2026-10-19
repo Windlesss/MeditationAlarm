@@ -1,0 +1,108 @@
+name: MeditationAlarm
+
+options:
+  bundleIdPrefix: com.windlessd
+  deploymentTarget:
+    iOS: "17.0"
+  groupSortPosition: top
+  createIntermediateGroups: true
+
+# project 级设置。放这里而不是 target 级 —— XcodeGen 里 target 的 `configs`
+# 会整个取代该 configuration 的 settings，把 SWIFT_VERSION / PRODUCT_NAME 一起冲掉。
+# project 级则与 target 级按 Xcode 的正常层级合并（target 覆盖 project）。
+settings:
+  configs:
+    Debug:
+      # XcodeGen 不像内置模板那样自动写这个，不显式声明的话 #if DEBUG 永远不成立
+      SWIFT_ACTIVE_COMPILATION_CONDITIONS: DEBUG
+
+# 内核（Packages/MeditationCore）**直接编入两个 target**，不走 SwiftPM 依赖。
+# 原因：Xcode 的包解析会写 ~/.swiftpm/security，在当前受限环境里不可用。
+# 好处：两个 target 拿到完全同一份计时/去重代码，不会版本漂移。
+# 代价：无。`swift test` 仍走 Packages/MeditationCore 那个独立包（保留）。
+
+targets:
+
+  MeditationAlarm:
+    type: application
+    platform: iOS
+    sources:
+      - MeditationAlarmApp
+      - Shared
+      - Packages/MeditationCore/Sources/MeditationCore
+      # 注意：不能用 type: folder —— XcodeGen 会把引用路径改写成 basename（Audio），
+      # 与实际的 Resources/Audio 不符，构建时报 lstat 失败。改为逐个加入资源阶段，
+      # 文件会平铺进 bundle 根目录（chimes/ 与 ambient/ 的文件名不重复，无冲突）。
+      - path: Resources/Audio
+        type: resources
+        group: Resources
+      # 提示音的 caf 副本：本地通知的声音文件只支持 aiff/wav/caf（不支持 m4a），
+      # 且要 < 30 秒。IMA4 压缩后每个约 140KB，共 8 个。
+      # （2026-10-19 起通知已停用，这些文件保留但不再排程。）
+      - path: Resources/Audio/chimes-caf
+        type: resources
+        group: Resources
+      # 静音守护：选「无背景音」的会话退后台时循环播放数字静音，守住音频会话，
+      # 保证 GCD 调度链在后台/锁屏下继续跑（App 不被系统挂起）。
+      - path: Resources/Audio/keepalive-silence.wav
+        type: resources
+        group: Resources
+    entitlements:
+      path: Support/MeditationAlarm.entitlements
+      properties:
+        com.apple.security.application-groups:
+          - group.com.windlessd.MeditationAlarm
+    info:
+      path: Support/App-Info.plist
+      properties:
+        CFBundleShortVersionString: "1.0"
+        CFBundleVersion: "1"
+        LSApplicationCategoryType: public.app-category.lifestyle
+        UILaunchScreen:
+          UIColorName: ""
+        UIRequiredDeviceCapabilities:
+          - arm64
+        UIBackgroundModes:
+          - audio
+        NSSupportsLiveActivities: true
+        ITSAppUsesNonExemptEncryption: false
+    settings:
+      SWIFT_VERSION: "5.0"
+      PRODUCT_NAME: MeditationAlarm
+      PRODUCT_BUNDLE_IDENTIFIER: com.windlessd.MeditationAlarm
+      DEVELOPMENT_TEAM: 524VAG6LTE
+      CODE_SIGN_STYLE: Automatic
+      TARGETED_DEVICE_FAMILY: "1"
+      # App 图标位于 MeditationAlarmApp/Resources/Assets.xcassets/AppIcon.appiconset
+      # （已随 MeditationAlarmApp 目录整体纳入），由 Resources/Logo/make_logo.py 生成
+      ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+    dependencies:
+      - target: MeditationAlarmWidget
+
+  MeditationAlarmWidget:
+    type: app-extension
+    platform: iOS
+    sources:
+      - MeditationAlarmWidget
+      - Shared
+      - Packages/MeditationCore/Sources/MeditationCore
+    entitlements:
+      path: Support/Widget.entitlements
+      properties:
+        com.apple.security.application-groups:
+          - group.com.windlessd.MeditationAlarm
+    info:
+      path: Support/Widget-Info.plist
+      properties:
+        CFBundleShortVersionString: "1.0"
+        CFBundleVersion: "1"
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.widgetkit-extension
+        NSSupportsLiveActivities: true
+    settings:
+      SWIFT_VERSION: "5.0"
+      PRODUCT_NAME: MeditationAlarmWidget
+      PRODUCT_BUNDLE_IDENTIFIER: com.windlessd.MeditationAlarm.widget
+      DEVELOPMENT_TEAM: 524VAG6LTE
+      CODE_SIGN_STYLE: Automatic
+      SKIP_INSTALL: true

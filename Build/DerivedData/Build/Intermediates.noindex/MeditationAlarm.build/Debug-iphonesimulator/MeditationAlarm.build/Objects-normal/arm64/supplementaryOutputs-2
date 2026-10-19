@@ -1,0 +1,23 @@
+{
+  "/Users/windless/WorkBuddy/MeditationAlarm/MeditationAlarmApp/Features/Setup/DurationCapsulePicker.swift" : {
+    "const-values" : "/Users/windless/WorkBuddy/MeditationAlarm/Build/DerivedData/Build/Intermediates.noindex/MeditationAlarm.build/Debug-iphonesimulator/MeditationAlarm.build/Objects-normal/arm64/DurationCapsulePicker.swiftconstvalues",
+    "dependencies" : "/Users/windless/WorkBuddy/MeditationAlarm/Build/DerivedData/Build/Intermediates.noindex/MeditationAlarm.build/Debug-iphonesimulator/MeditationAlarm.build/Objects-normal/arm64/DurationCapsulePicker.d",
+    "diagnostics" : "/Users/windless/WorkBuddy/MeditationAlarm/Build/DerivedData/Build/Intermediates.noindex/MeditationAlarm.build/Debug-iphonesimulator/MeditationAlarm.build/Objects-normal/arm64/DurationCapsulePicker.dia",
+    "object" : "/Users/windless/WorkBuddy/MeditationAlarm/Build/DerivedData/Build/Intermediates.noindex/MeditationAlarm.build/Debug-iphonesimulator/MeditationAlarm.build/Objects-normal/arm64/DurationCapsulePicker.o",
+    "swift-dependencies" : "/Users/windless/WorkBuddy/MeditationAlarm/Build/DerivedData/Build/Intermediates.noindex/MeditationAlarm.build/Debug-iphonesimulator/MeditationAlarm.build/Objects-normal/arm64/DurationCapsulePicker.swiftdeps"
+  },
+  "/Users/windless/WorkBuddy/MeditationAlarm/Packages/MeditationCore/Sources/MeditationCore/Session/IntervalSchedule.swift" : {
+    "const-values" : "/Users/windless/WorkBuddy/MeditationAlarm/Build/DerivedData/Build/Intermediates.noindex/MeditationAlarm.build/Debug-iphonesimulator/MeditationAlarm.build/Objects-normal/arm64/IntervalSchedule.swiftconstvalues",
+    "dependencies" : "/Users/windless/WorkBuddy/MeditationAlarm/Build/DerivedData/Build/Intermediates.noindex/MeditationAlarm.build/Debug-iphonesimulator/MeditationAlarm.build/Objects-normal/arm64/IntervalSchedule.d",
+    "diagnostics" : "/Users/windless/WorkBuddy/MeditationAlarm/Build/DerivedData/Build/Intermediates.noindex/MeditationAlarm.build/Debug-iphonesimulator/MeditationAlarm.build/Objects-normal/arm64/IntervalSchedule.dia",
+    "object" : "/Users/windless/WorkBuddy/MeditationAlarm/Build/DerivedData/Build/Intermediates.noindex/MeditationAlarm.build/Debug-iphonesimulator/MeditationAlarm.build/Objects-normal/arm64/IntervalSchedule.o",
+    "swift-dependencies" : "/Users/windless/WorkBuddy/MeditationAlarm/Build/DerivedData/Build/Intermediates.noindex/MeditationAlarm.build/Debug-iphonesimulator/MeditationAlarm.build/Objects-normal/arm64/IntervalSchedule.swiftdeps"
+  },
+  "/Users/windless/WorkBuddy/MeditationAlarm/Shared/DebugLog.swift" : {
+    "const-values" : "/Users/windless/WorkBuddy/MeditationAlarm/Build/DerivedData/Build/Intermediates.noindex/MeditationAlarm.build/Debug-iphonesimulator/MeditationAlarm.build/Objects-normal/arm64/DebugLog.swiftconstvalues",
+    "dependencies" : "/Users/windless/WorkBuddy/MeditationAlarm/Build/DerivedData/Build/Intermediates.noindex/MeditationAlarm.build/Debug-iphonesimulator/MeditationAlarm.build/Objects-normal/arm64/DebugLog.d",
+    "diagnostics" : "/Users/windless/WorkBuddy/MeditationAlarm/Build/DerivedData/Build/Intermediates.noindex/MeditationAlarm.build/Debug-iphonesimulator/MeditationAlarm.build/Objects-normal/arm64/DebugLog.dia",
+    "object" : "/Users/windless/WorkBuddy/MeditationAlarm/Build/DerivedData/Build/Intermediates.noindex/MeditationAlarm.build/Debug-iphonesimulator/MeditationAlarm.build/Objects-normal/arm64/DebugLog.o",
+    "swift-dependencies" : "/Users/windless/WorkBuddy/MeditationAlarm/Build/DerivedData/Build/Intermediates.noindex/MeditationAlarm.build/Debug-iphonesimulator/MeditationAlarm.build/Objects-normal/arm64/DebugLog.swiftdeps"
+  }
+}

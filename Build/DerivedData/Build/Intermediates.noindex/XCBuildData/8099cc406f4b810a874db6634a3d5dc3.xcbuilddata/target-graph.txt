@@ -1,0 +1,4 @@
+Target dependency graph (2 targets)
+Target 'MeditationAlarm' in project 'MeditationAlarm'
+➜ Explicit dependency on target 'MeditationAlarmWidget' in project 'MeditationAlarm'
+Target 'MeditationAlarmWidget' in project 'MeditationAlarm' (no dependencies)

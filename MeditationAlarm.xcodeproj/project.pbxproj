@@ -1,0 +1,705 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		023B49E8A89A420CAEBCF92A /* MeditationAlarmWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 0C335E937CBA33F175151D24 /* MeditationAlarmWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		03D4A3EBB12042E1A2218FF5 /* ControlBus.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE3EBBE130B201899B05732 /* ControlBus.swift */; };
+		07B4F54B813910E586E7B032 /* MeditationActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7304CC87DDE7234017F0AC4D /* MeditationActivityAttributes.swift */; };
+		09A8B6CB303C13A58FD43767 /* stream.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 94E8718AD0FC12D48CA6D3BB /* stream.m4a */; };
+		1046A7AAA64A38F4581F45B7 /* bowl-deep-02.m4a in Resources */ = {isa = PBXBuildFile; fileRef = DAADDDC5B2811E154ED4CED2 /* bowl-deep-02.m4a */; };
+		10CAF948290C73AEE2368FFF /* VitalReading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1BB653F13C1A20BD1B83D9 /* VitalReading.swift */; };
+		197B596185DC78567FBCF2D6 /* VitalReading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1BB653F13C1A20BD1B83D9 /* VitalReading.swift */; };
+		200B839B91A9A13C9CFF1E89 /* SoundCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5EA2FD9F1E913371AACE527 /* SoundCatalog.swift */; };
+		225C7B5E4754DAE70D0F9711 /* SessionClock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4469CC74091AD1F40F99BE16 /* SessionClock.swift */; };
+		234F8FD7C109744F8E9D06E8 /* JournalPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B69BE071C715BF69EE8EC6 /* JournalPlaceholder.swift */; };
+		2861BDC6D474506DAD4F21D0 /* DebugLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30AF02E66EE0FA89202FF788 /* DebugLog.swift */; };
+		2C3ABB0C34C2A5BE520F0B7F /* MeditationActivityWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47B56CE03371BA5BC405AF6 /* MeditationActivityWidget.swift */; };
+		2DF8623B49803A0905403A4A /* LiveActivityController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504494561BCC8B3FFE222088 /* LiveActivityController.swift */; };
+		3094A6E33164D28AF0853043 /* ControlBus.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE3EBBE130B201899B05732 /* ControlBus.swift */; };
+		33E4153DA451B28F2DDB8E30 /* bowl-large-hit.caf in Resources */ = {isa = PBXBuildFile; fileRef = B8F0DBED369D81F7931BD815 /* bowl-large-hit.caf */; };
+		3D3BCC86A705D943BE97902A /* sea.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 07588419E4648C94EA3C726A /* sea.m4a */; };
+		3D52E154F44E6D627DDAA96D /* MeditationControlIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694C14F51AB826E99FBFE70D /* MeditationControlIntent.swift */; };
+		488A3C54EF90814571145812 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 76FDB3C52EC4D519764E5DB4 /* Assets.xcassets */; };
+		48B49765A2B668109EE3D04F /* IntervalSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15A65549B7CC5EE332B115C /* IntervalSchedule.swift */; };
+		4C7D0D1D8C23699C40057A35 /* chime-tubebell.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 636EC2CC400CD9EA93C5D7AB /* chime-tubebell.m4a */; };
+		501AC8F689201D3E4C322F60 /* ReminderScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722131EB0E43D38C3DABA137 /* ReminderScheduler.swift */; };
+		50A1DF862CB8140B226381EE /* rain-window.m4a in Resources */ = {isa = PBXBuildFile; fileRef = DB6E3C4EDCB1E4B0202E819A /* rain-window.m4a */; };
+		593FF226FB4E5EFA5F60C531 /* chime-tubebell.caf in Resources */ = {isa = PBXBuildFile; fileRef = BFE003BDCA31129246D2B714 /* chime-tubebell.caf */; };
+		5CABA56EBB6F2D19D3569477 /* rain.m4a in Resources */ = {isa = PBXBuildFile; fileRef = C760B9D7816CAD319A0A61D8 /* rain.m4a */; };
+		613111CABE2D744D9882C0BB /* rin-strike.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7240D5789C6BB38FB3018792 /* rin-strike.caf */; };
+		6276D577420EDF330ABD6DA1 /* rin-friction.caf in Resources */ = {isa = PBXBuildFile; fileRef = B6C1724E091DEAF13EAEE43C /* rin-friction.caf */; };
+		67DE588D346062897D1DA2FA /* bowl-small.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 1AAC5C2B3A241B134D5A4720 /* bowl-small.m4a */; };
+		69E7AD6B0866E6210F2E0236 /* bowl-small-hit.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 91D5FEB55D93B6161C3632A9 /* bowl-small-hit.m4a */; };
+		6C885A49E121B231F8188CA9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4068C0B2D255EA47CD6AAA4B /* AppDelegate.swift */; };
+		763EB752D5E07289395226CE /* rin-strike.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 2AB318C120307E4D7CBF2E96 /* rin-strike.m4a */; };
+		7C57CF2D9C3A3DC112F24BFC /* bowl-small.caf in Resources */ = {isa = PBXBuildFile; fileRef = A4E5341E5271A8AE7D7359F6 /* bowl-small.caf */; };
+		7E15D4A7FDAB3B6CD7C2CB53 /* MeditationAlarmApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A39682BE8BE1E947B2CA1D /* MeditationAlarmApp.swift */; };
+		7FE899D9BEE14C7637C26B76 /* water-flow.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 790177219319B9ACB0F9EE73 /* water-flow.m4a */; };
+		850ACDE81078E95247C64803 /* DurationCapsulePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8449AB0522C6475B4DCFD6A8 /* DurationCapsulePicker.swift */; };
+		89675304BE1127B20A5EE2AD /* SessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95BFF86F7F508E8C4E9EB17 /* SessionController.swift */; };
+		8B13AE35FD3E80BC03096B58 /* SetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2A8A1E5BDC249D77E6031F /* SetupView.swift */; };
+		8D43A83F81C33EA1C8AD5EFD /* MeditationControlIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694C14F51AB826E99FBFE70D /* MeditationControlIntent.swift */; };
+		8F693473BEFD664C3E072E9B /* DebugLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30AF02E66EE0FA89202FF788 /* DebugLog.swift */; };
+		954BC4F22214F593FA1CC934 /* bowl-deep-01.caf in Resources */ = {isa = PBXBuildFile; fileRef = 727F05026CE6D87DC7618599 /* bowl-deep-01.caf */; };
+		98570C8349164394DACF4559 /* CREDITS.md in Resources */ = {isa = PBXBuildFile; fileRef = 33536AB0788A0A4A8F747D34 /* CREDITS.md */; };
+		991E84E52B9DC54F3E174900 /* bowl-deep-02.caf in Resources */ = {isa = PBXBuildFile; fileRef = BE7EC9853F60C533B1AF9DE5 /* bowl-deep-02.caf */; };
+		9BF140DFDC284318EC910078 /* bowl-small-hit.caf in Resources */ = {isa = PBXBuildFile; fileRef = FC2BBB0416387781EBB1CDFA /* bowl-small-hit.caf */; };
+		9D849F6F4060AA3CEFCDE4AF /* SessionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E76736484536D10917DA872 /* SessionStore.swift */; };
+		C49300A903040D196C62903E /* keepalive-silence.wav in Resources */ = {isa = PBXBuildFile; fileRef = AD583393351E5E3B970C2599 /* keepalive-silence.wav */; };
+		CEF520D20DB7D0AB4FA944C1 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 341B36080A66259DAFA12A70 /* RootView.swift */; };
+		CF19FBDD71FDD49A351D1FA3 /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75F8D58C1C0A1158B82FBF8 /* Palette.swift */; };
+		CFB26EE910E97B15377E21EB /* bowl-deep-01.m4a in Resources */ = {isa = PBXBuildFile; fileRef = CBBC59BBCD9DE2AA1DC3C232 /* bowl-deep-01.m4a */; };
+		D3F962425AA3C43564355C54 /* MeditationAlarmWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1998141A0E4FA9FEF2233C37 /* MeditationAlarmWidgetBundle.swift */; };
+		D47681341642EEDF0B13522D /* IntervalSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15A65549B7CC5EE332B115C /* IntervalSchedule.swift */; };
+		DBD19786B0C7A7C08DA3920F /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75F8D58C1C0A1158B82FBF8 /* Palette.swift */; };
+		DC53404BAE6933E59407E6A3 /* forest-birds.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 942693189E2BAC713F2D4072 /* forest-birds.m4a */; };
+		DDFA2F2DE69DAF5D634B50C7 /* AudioEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8583D55E47B983236E0D853D /* AudioEngine.swift */; };
+		DF3D08E05F1A6035083737EF /* SessionClock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4469CC74091AD1F40F99BE16 /* SessionClock.swift */; };
+		EAA924AC71274FA219221230 /* ocean.m4a in Resources */ = {isa = PBXBuildFile; fileRef = F37C7895F1C4A90E77697C95 /* ocean.m4a */; };
+		F01B17A594702CF3BCFA7A2D /* bowl-large-hit.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 553C3DBFB8EDEA723A3859F1 /* bowl-large-hit.m4a */; };
+		F4BEA97A8F5AF4F93DC3A503 /* SessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C3A1EB5FBE76DA721DD108 /* SessionView.swift */; };
+		F5D0885C88284B889222E57D /* MeditationActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7304CC87DDE7234017F0AC4D /* MeditationActivityAttributes.swift */; };
+		FCBFFA4B71D3EF8DA9DFDD83 /* rin-friction.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 95D10AB4939D2B6670D21430 /* rin-friction.m4a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E9D6FAB769B905348439FA66 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6808912453079F975C0CA1C0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D64D69248E9BCE67E14A910B;
+			remoteInfo = MeditationAlarmWidget;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		DC2528536F296BF7B916DAB9 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				023B49E8A89A420CAEBCF92A /* MeditationAlarmWidget.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		07588419E4648C94EA3C726A /* sea.m4a */ = {isa = PBXFileReference; path = sea.m4a; sourceTree = "<group>"; };
+		0C335E937CBA33F175151D24 /* MeditationAlarmWidget.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = MeditationAlarmWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		14C3A1EB5FBE76DA721DD108 /* SessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionView.swift; sourceTree = "<group>"; };
+		1998141A0E4FA9FEF2233C37 /* MeditationAlarmWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeditationAlarmWidgetBundle.swift; sourceTree = "<group>"; };
+		1AAC5C2B3A241B134D5A4720 /* bowl-small.m4a */ = {isa = PBXFileReference; path = "bowl-small.m4a"; sourceTree = "<group>"; };
+		2AB318C120307E4D7CBF2E96 /* rin-strike.m4a */ = {isa = PBXFileReference; path = "rin-strike.m4a"; sourceTree = "<group>"; };
+		30AF02E66EE0FA89202FF788 /* DebugLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugLog.swift; sourceTree = "<group>"; };
+		33536AB0788A0A4A8F747D34 /* CREDITS.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CREDITS.md; sourceTree = "<group>"; };
+		341B36080A66259DAFA12A70 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		4068C0B2D255EA47CD6AAA4B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		41B69BE071C715BF69EE8EC6 /* JournalPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalPlaceholder.swift; sourceTree = "<group>"; };
+		4469CC74091AD1F40F99BE16 /* SessionClock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionClock.swift; sourceTree = "<group>"; };
+		504494561BCC8B3FFE222088 /* LiveActivityController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveActivityController.swift; sourceTree = "<group>"; };
+		553C3DBFB8EDEA723A3859F1 /* bowl-large-hit.m4a */ = {isa = PBXFileReference; path = "bowl-large-hit.m4a"; sourceTree = "<group>"; };
+		636EC2CC400CD9EA93C5D7AB /* chime-tubebell.m4a */ = {isa = PBXFileReference; path = "chime-tubebell.m4a"; sourceTree = "<group>"; };
+		67E590F0545AF747A104D393 /* MeditationAlarm.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = MeditationAlarm.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		694C14F51AB826E99FBFE70D /* MeditationControlIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeditationControlIntent.swift; sourceTree = "<group>"; };
+		6E76736484536D10917DA872 /* SessionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStore.swift; sourceTree = "<group>"; };
+		722131EB0E43D38C3DABA137 /* ReminderScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderScheduler.swift; sourceTree = "<group>"; };
+		7240D5789C6BB38FB3018792 /* rin-strike.caf */ = {isa = PBXFileReference; path = "rin-strike.caf"; sourceTree = "<group>"; };
+		727F05026CE6D87DC7618599 /* bowl-deep-01.caf */ = {isa = PBXFileReference; path = "bowl-deep-01.caf"; sourceTree = "<group>"; };
+		7304CC87DDE7234017F0AC4D /* MeditationActivityAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeditationActivityAttributes.swift; sourceTree = "<group>"; };
+		76FDB3C52EC4D519764E5DB4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		790177219319B9ACB0F9EE73 /* water-flow.m4a */ = {isa = PBXFileReference; path = "water-flow.m4a"; sourceTree = "<group>"; };
+		7D1BB653F13C1A20BD1B83D9 /* VitalReading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VitalReading.swift; sourceTree = "<group>"; };
+		8449AB0522C6475B4DCFD6A8 /* DurationCapsulePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurationCapsulePicker.swift; sourceTree = "<group>"; };
+		8583D55E47B983236E0D853D /* AudioEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioEngine.swift; sourceTree = "<group>"; };
+		86A39682BE8BE1E947B2CA1D /* MeditationAlarmApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeditationAlarmApp.swift; sourceTree = "<group>"; };
+		91D5FEB55D93B6161C3632A9 /* bowl-small-hit.m4a */ = {isa = PBXFileReference; path = "bowl-small-hit.m4a"; sourceTree = "<group>"; };
+		942693189E2BAC713F2D4072 /* forest-birds.m4a */ = {isa = PBXFileReference; path = "forest-birds.m4a"; sourceTree = "<group>"; };
+		94E8718AD0FC12D48CA6D3BB /* stream.m4a */ = {isa = PBXFileReference; path = stream.m4a; sourceTree = "<group>"; };
+		95D10AB4939D2B6670D21430 /* rin-friction.m4a */ = {isa = PBXFileReference; path = "rin-friction.m4a"; sourceTree = "<group>"; };
+		A47B56CE03371BA5BC405AF6 /* MeditationActivityWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeditationActivityWidget.swift; sourceTree = "<group>"; };
+		A4E5341E5271A8AE7D7359F6 /* bowl-small.caf */ = {isa = PBXFileReference; path = "bowl-small.caf"; sourceTree = "<group>"; };
+		A75F8D58C1C0A1158B82FBF8 /* Palette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Palette.swift; sourceTree = "<group>"; };
+		A95BFF86F7F508E8C4E9EB17 /* SessionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionController.swift; sourceTree = "<group>"; };
+		ABE3EBBE130B201899B05732 /* ControlBus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlBus.swift; sourceTree = "<group>"; };
+		AD583393351E5E3B970C2599 /* keepalive-silence.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "keepalive-silence.wav"; path = "Audio/keepalive-silence.wav"; sourceTree = "<group>"; };
+		B6C1724E091DEAF13EAEE43C /* rin-friction.caf */ = {isa = PBXFileReference; path = "rin-friction.caf"; sourceTree = "<group>"; };
+		B8F0DBED369D81F7931BD815 /* bowl-large-hit.caf */ = {isa = PBXFileReference; path = "bowl-large-hit.caf"; sourceTree = "<group>"; };
+		BE7EC9853F60C533B1AF9DE5 /* bowl-deep-02.caf */ = {isa = PBXFileReference; path = "bowl-deep-02.caf"; sourceTree = "<group>"; };
+		BFE003BDCA31129246D2B714 /* chime-tubebell.caf */ = {isa = PBXFileReference; path = "chime-tubebell.caf"; sourceTree = "<group>"; };
+		C760B9D7816CAD319A0A61D8 /* rain.m4a */ = {isa = PBXFileReference; path = rain.m4a; sourceTree = "<group>"; };
+		CBBC59BBCD9DE2AA1DC3C232 /* bowl-deep-01.m4a */ = {isa = PBXFileReference; path = "bowl-deep-01.m4a"; sourceTree = "<group>"; };
+		D5EA2FD9F1E913371AACE527 /* SoundCatalog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundCatalog.swift; sourceTree = "<group>"; };
+		DAADDDC5B2811E154ED4CED2 /* bowl-deep-02.m4a */ = {isa = PBXFileReference; path = "bowl-deep-02.m4a"; sourceTree = "<group>"; };
+		DB6E3C4EDCB1E4B0202E819A /* rain-window.m4a */ = {isa = PBXFileReference; path = "rain-window.m4a"; sourceTree = "<group>"; };
+		DE2A8A1E5BDC249D77E6031F /* SetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupView.swift; sourceTree = "<group>"; };
+		F15A65549B7CC5EE332B115C /* IntervalSchedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalSchedule.swift; sourceTree = "<group>"; };
+		F37C7895F1C4A90E77697C95 /* ocean.m4a */ = {isa = PBXFileReference; path = ocean.m4a; sourceTree = "<group>"; };
+		FC2BBB0416387781EBB1CDFA /* bowl-small-hit.caf */ = {isa = PBXFileReference; path = "bowl-small-hit.caf"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		0CF35B4BBCA95D8BB4AE5DD0 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				62CAF2D6181BA9F392CFF0F4 /* Records */,
+				894685B5657FB65DC002F1AF /* Root */,
+				A3B455A145C38DDC3DE77566 /* Session */,
+				CB17B124310EDFD6D31383D4 /* Setup */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		195F433DDDF8951AFB025DE5 /* Session */ = {
+			isa = PBXGroup;
+			children = (
+				F15A65549B7CC5EE332B115C /* IntervalSchedule.swift */,
+				4469CC74091AD1F40F99BE16 /* SessionClock.swift */,
+			);
+			path = Session;
+			sourceTree = "<group>";
+		};
+		1B58F1CF4D4F2B322F6939EC /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				29C3BFAA5B6181ABF346589A /* MeditationCore */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		25204A6EE1AA4FDB3C16DC9E /* LiveActivity */ = {
+			isa = PBXGroup;
+			children = (
+				504494561BCC8B3FFE222088 /* LiveActivityController.swift */,
+			);
+			path = LiveActivity;
+			sourceTree = "<group>";
+		};
+		29C3BFAA5B6181ABF346589A /* MeditationCore */ = {
+			isa = PBXGroup;
+			children = (
+				BF58FD8B4C262F65D23A3FCE /* Health */,
+				195F433DDDF8951AFB025DE5 /* Session */,
+			);
+			path = MeditationCore;
+			sourceTree = "<group>";
+		};
+		3B135CCBB2969253BDFA76E3 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				3C635C613CD431A8699CE30E /* Audio */,
+				52210D7877BB8D412356248A /* chimes-caf */,
+				AD583393351E5E3B970C2599 /* keepalive-silence.wav */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		3C635C613CD431A8699CE30E /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				4572BBEC35ED51C5AE36742F /* ambient */,
+				A1354F70653E375A539A847F /* chimes */,
+				52210D7877BB8D412356248A /* chimes-caf */,
+				33536AB0788A0A4A8F747D34 /* CREDITS.md */,
+				AD583393351E5E3B970C2599 /* keepalive-silence.wav */,
+			);
+			path = Audio;
+			sourceTree = "<group>";
+		};
+		4572BBEC35ED51C5AE36742F /* ambient */ = {
+			isa = PBXGroup;
+			children = (
+				942693189E2BAC713F2D4072 /* forest-birds.m4a */,
+				F37C7895F1C4A90E77697C95 /* ocean.m4a */,
+				DB6E3C4EDCB1E4B0202E819A /* rain-window.m4a */,
+				C760B9D7816CAD319A0A61D8 /* rain.m4a */,
+				07588419E4648C94EA3C726A /* sea.m4a */,
+				94E8718AD0FC12D48CA6D3BB /* stream.m4a */,
+				790177219319B9ACB0F9EE73 /* water-flow.m4a */,
+			);
+			path = ambient;
+			sourceTree = "<group>";
+		};
+		52210D7877BB8D412356248A /* chimes-caf */ = {
+			isa = PBXGroup;
+			children = (
+				727F05026CE6D87DC7618599 /* bowl-deep-01.caf */,
+				BE7EC9853F60C533B1AF9DE5 /* bowl-deep-02.caf */,
+				B8F0DBED369D81F7931BD815 /* bowl-large-hit.caf */,
+				FC2BBB0416387781EBB1CDFA /* bowl-small-hit.caf */,
+				A4E5341E5271A8AE7D7359F6 /* bowl-small.caf */,
+				BFE003BDCA31129246D2B714 /* chime-tubebell.caf */,
+				B6C1724E091DEAF13EAEE43C /* rin-friction.caf */,
+				7240D5789C6BB38FB3018792 /* rin-strike.caf */,
+			);
+			name = "chimes-caf";
+			path = "Audio/chimes-caf";
+			sourceTree = "<group>";
+		};
+		55460A9A18FBCA99D188B1E3 = {
+			isa = PBXGroup;
+			children = (
+				FBC7FC1A2B9B039E4F8ACFD7 /* MeditationAlarmApp */,
+				DE9A3D4463DA4C24559950D5 /* MeditationAlarmWidget */,
+				CB503F240321E24048BC273F /* Packages */,
+				3B135CCBB2969253BDFA76E3 /* Resources */,
+				C5A542F13B1990CADE21041D /* Shared */,
+				C875FF3845B2BF94493AA20B /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		6020DB81A70289743BD80A81 /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				8583D55E47B983236E0D853D /* AudioEngine.swift */,
+				D5EA2FD9F1E913371AACE527 /* SoundCatalog.swift */,
+			);
+			path = Audio;
+			sourceTree = "<group>";
+		};
+		62CAF2D6181BA9F392CFF0F4 /* Records */ = {
+			isa = PBXGroup;
+			children = (
+				41B69BE071C715BF69EE8EC6 /* JournalPlaceholder.swift */,
+			);
+			path = Records;
+			sourceTree = "<group>";
+		};
+		79AAE76457A59A7BCB917AF3 /* Session */ = {
+			isa = PBXGroup;
+			children = (
+				A95BFF86F7F508E8C4E9EB17 /* SessionController.swift */,
+			);
+			path = Session;
+			sourceTree = "<group>";
+		};
+		894685B5657FB65DC002F1AF /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				341B36080A66259DAFA12A70 /* RootView.swift */,
+			);
+			path = Root;
+			sourceTree = "<group>";
+		};
+		9B10761AB21C67B835496F48 /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				6E76736484536D10917DA872 /* SessionStore.swift */,
+			);
+			path = Persistence;
+			sourceTree = "<group>";
+		};
+		A1354F70653E375A539A847F /* chimes */ = {
+			isa = PBXGroup;
+			children = (
+				CBBC59BBCD9DE2AA1DC3C232 /* bowl-deep-01.m4a */,
+				DAADDDC5B2811E154ED4CED2 /* bowl-deep-02.m4a */,
+				553C3DBFB8EDEA723A3859F1 /* bowl-large-hit.m4a */,
+				91D5FEB55D93B6161C3632A9 /* bowl-small-hit.m4a */,
+				1AAC5C2B3A241B134D5A4720 /* bowl-small.m4a */,
+				636EC2CC400CD9EA93C5D7AB /* chime-tubebell.m4a */,
+				95D10AB4939D2B6670D21430 /* rin-friction.m4a */,
+				2AB318C120307E4D7CBF2E96 /* rin-strike.m4a */,
+			);
+			path = chimes;
+			sourceTree = "<group>";
+		};
+		A3B455A145C38DDC3DE77566 /* Session */ = {
+			isa = PBXGroup;
+			children = (
+				14C3A1EB5FBE76DA721DD108 /* SessionView.swift */,
+			);
+			path = Session;
+			sourceTree = "<group>";
+		};
+		A81A313D4E8FD52A55A3B2FB /* MeditationCore */ = {
+			isa = PBXGroup;
+			children = (
+				1B58F1CF4D4F2B322F6939EC /* Sources */,
+			);
+			path = MeditationCore;
+			sourceTree = "<group>";
+		};
+		AD7DF6B723BACD514BFA1743 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				4068C0B2D255EA47CD6AAA4B /* AppDelegate.swift */,
+				86A39682BE8BE1E947B2CA1D /* MeditationAlarmApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		B0DFD6B4D0579AC0DB44E63E /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				722131EB0E43D38C3DABA137 /* ReminderScheduler.swift */,
+			);
+			path = Notifications;
+			sourceTree = "<group>";
+		};
+		BF58FD8B4C262F65D23A3FCE /* Health */ = {
+			isa = PBXGroup;
+			children = (
+				7D1BB653F13C1A20BD1B83D9 /* VitalReading.swift */,
+			);
+			path = Health;
+			sourceTree = "<group>";
+		};
+		C5A542F13B1990CADE21041D /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				ABE3EBBE130B201899B05732 /* ControlBus.swift */,
+				30AF02E66EE0FA89202FF788 /* DebugLog.swift */,
+				7304CC87DDE7234017F0AC4D /* MeditationActivityAttributes.swift */,
+				694C14F51AB826E99FBFE70D /* MeditationControlIntent.swift */,
+				A75F8D58C1C0A1158B82FBF8 /* Palette.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		C875FF3845B2BF94493AA20B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				67E590F0545AF747A104D393 /* MeditationAlarm.app */,
+				0C335E937CBA33F175151D24 /* MeditationAlarmWidget.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C8DEC3DE53CD9A2159529738 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				76FDB3C52EC4D519764E5DB4 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		CB17B124310EDFD6D31383D4 /* Setup */ = {
+			isa = PBXGroup;
+			children = (
+				8449AB0522C6475B4DCFD6A8 /* DurationCapsulePicker.swift */,
+				DE2A8A1E5BDC249D77E6031F /* SetupView.swift */,
+			);
+			path = Setup;
+			sourceTree = "<group>";
+		};
+		CB503F240321E24048BC273F /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				A81A313D4E8FD52A55A3B2FB /* MeditationCore */,
+			);
+			path = Packages;
+			sourceTree = "<group>";
+		};
+		DE9A3D4463DA4C24559950D5 /* MeditationAlarmWidget */ = {
+			isa = PBXGroup;
+			children = (
+				A47B56CE03371BA5BC405AF6 /* MeditationActivityWidget.swift */,
+				1998141A0E4FA9FEF2233C37 /* MeditationAlarmWidgetBundle.swift */,
+			);
+			path = MeditationAlarmWidget;
+			sourceTree = "<group>";
+		};
+		FBC7FC1A2B9B039E4F8ACFD7 /* MeditationAlarmApp */ = {
+			isa = PBXGroup;
+			children = (
+				AD7DF6B723BACD514BFA1743 /* App */,
+				6020DB81A70289743BD80A81 /* Audio */,
+				0CF35B4BBCA95D8BB4AE5DD0 /* Features */,
+				25204A6EE1AA4FDB3C16DC9E /* LiveActivity */,
+				B0DFD6B4D0579AC0DB44E63E /* Notifications */,
+				9B10761AB21C67B835496F48 /* Persistence */,
+				C8DEC3DE53CD9A2159529738 /* Resources */,
+				79AAE76457A59A7BCB917AF3 /* Session */,
+			);
+			path = MeditationAlarmApp;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A3D940162993DEE0FAC2FDCA /* MeditationAlarm */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4B8836A1681405E5930859D0 /* Build configuration list for PBXNativeTarget "MeditationAlarm" */;
+			buildPhases = (
+				40830F08020096E3CF025323 /* Sources */,
+				E1D76D8C4866666700BF203D /* Resources */,
+				DC2528536F296BF7B916DAB9 /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				689BD1DE791016753800A154 /* PBXTargetDependency */,
+			);
+			name = MeditationAlarm;
+			packageProductDependencies = (
+			);
+			productName = MeditationAlarm;
+			productReference = 67E590F0545AF747A104D393 /* MeditationAlarm.app */;
+			productType = "com.apple.product-type.application";
+		};
+		D64D69248E9BCE67E14A910B /* MeditationAlarmWidget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3B4645A9BC6825C65CC0D4B1 /* Build configuration list for PBXNativeTarget "MeditationAlarmWidget" */;
+			buildPhases = (
+				11DBCDFE740AE75A8CD680A0 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MeditationAlarmWidget;
+			packageProductDependencies = (
+			);
+			productName = MeditationAlarmWidget;
+			productReference = 0C335E937CBA33F175151D24 /* MeditationAlarmWidget.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6808912453079F975C0CA1C0 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					A3D940162993DEE0FAC2FDCA = {
+						DevelopmentTeam = 524VAG6LTE;
+						ProvisioningStyle = Automatic;
+					};
+					D64D69248E9BCE67E14A910B = {
+						DevelopmentTeam = 524VAG6LTE;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 2D6FAD7DDE584407A04B4CCD /* Build configuration list for PBXProject "MeditationAlarm" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 55460A9A18FBCA99D188B1E3;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = C875FF3845B2BF94493AA20B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A3D940162993DEE0FAC2FDCA /* MeditationAlarm */,
+				D64D69248E9BCE67E14A910B /* MeditationAlarmWidget */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E1D76D8C4866666700BF203D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				488A3C54EF90814571145812 /* Assets.xcassets in Resources */,
+				98570C8349164394DACF4559 /* CREDITS.md in Resources */,
+				954BC4F22214F593FA1CC934 /* bowl-deep-01.caf in Resources */,
+				CFB26EE910E97B15377E21EB /* bowl-deep-01.m4a in Resources */,
+				991E84E52B9DC54F3E174900 /* bowl-deep-02.caf in Resources */,
+				1046A7AAA64A38F4581F45B7 /* bowl-deep-02.m4a in Resources */,
+				33E4153DA451B28F2DDB8E30 /* bowl-large-hit.caf in Resources */,
+				F01B17A594702CF3BCFA7A2D /* bowl-large-hit.m4a in Resources */,
+				9BF140DFDC284318EC910078 /* bowl-small-hit.caf in Resources */,
+				69E7AD6B0866E6210F2E0236 /* bowl-small-hit.m4a in Resources */,
+				7C57CF2D9C3A3DC112F24BFC /* bowl-small.caf in Resources */,
+				67DE588D346062897D1DA2FA /* bowl-small.m4a in Resources */,
+				593FF226FB4E5EFA5F60C531 /* chime-tubebell.caf in Resources */,
+				4C7D0D1D8C23699C40057A35 /* chime-tubebell.m4a in Resources */,
+				DC53404BAE6933E59407E6A3 /* forest-birds.m4a in Resources */,
+				C49300A903040D196C62903E /* keepalive-silence.wav in Resources */,
+				EAA924AC71274FA219221230 /* ocean.m4a in Resources */,
+				50A1DF862CB8140B226381EE /* rain-window.m4a in Resources */,
+				5CABA56EBB6F2D19D3569477 /* rain.m4a in Resources */,
+				6276D577420EDF330ABD6DA1 /* rin-friction.caf in Resources */,
+				FCBFFA4B71D3EF8DA9DFDD83 /* rin-friction.m4a in Resources */,
+				613111CABE2D744D9882C0BB /* rin-strike.caf in Resources */,
+				763EB752D5E07289395226CE /* rin-strike.m4a in Resources */,
+				3D3BCC86A705D943BE97902A /* sea.m4a in Resources */,
+				09A8B6CB303C13A58FD43767 /* stream.m4a in Resources */,
+				7FE899D9BEE14C7637C26B76 /* water-flow.m4a in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		11DBCDFE740AE75A8CD680A0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				03D4A3EBB12042E1A2218FF5 /* ControlBus.swift in Sources */,
+				2861BDC6D474506DAD4F21D0 /* DebugLog.swift in Sources */,
+				D47681341642EEDF0B13522D /* IntervalSchedule.swift in Sources */,
+				F5D0885C88284B889222E57D /* MeditationActivityAttributes.swift in Sources */,
+				2C3ABB0C34C2A5BE520F0B7F /* MeditationActivityWidget.swift in Sources */,
+				D3F962425AA3C43564355C54 /* MeditationAlarmWidgetBundle.swift in Sources */,
+				3D52E154F44E6D627DDAA96D /* MeditationControlIntent.swift in Sources */,
+				CF19FBDD71FDD49A351D1FA3 /* Palette.swift in Sources */,
+				DF3D08E05F1A6035083737EF /* SessionClock.swift in Sources */,
+				197B596185DC78567FBCF2D6 /* VitalReading.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		40830F08020096E3CF025323 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6C885A49E121B231F8188CA9 /* AppDelegate.swift in Sources */,
+				DDFA2F2DE69DAF5D634B50C7 /* AudioEngine.swift in Sources */,
+				3094A6E33164D28AF0853043 /* ControlBus.swift in Sources */,
+				8F693473BEFD664C3E072E9B /* DebugLog.swift in Sources */,
+				850ACDE81078E95247C64803 /* DurationCapsulePicker.swift in Sources */,
+				48B49765A2B668109EE3D04F /* IntervalSchedule.swift in Sources */,
+				234F8FD7C109744F8E9D06E8 /* JournalPlaceholder.swift in Sources */,
+				2DF8623B49803A0905403A4A /* LiveActivityController.swift in Sources */,
+				07B4F54B813910E586E7B032 /* MeditationActivityAttributes.swift in Sources */,
+				7E15D4A7FDAB3B6CD7C2CB53 /* MeditationAlarmApp.swift in Sources */,
+				8D43A83F81C33EA1C8AD5EFD /* MeditationControlIntent.swift in Sources */,
+				DBD19786B0C7A7C08DA3920F /* Palette.swift in Sources */,
+				501AC8F689201D3E4C322F60 /* ReminderScheduler.swift in Sources */,
+				CEF520D20DB7D0AB4FA944C1 /* RootView.swift in Sources */,
+				225C7B5E4754DAE70D0F9711 /* SessionClock.swift in Sources */,
+				89675304BE1127B20A5EE2AD /* SessionController.swift in Sources */,
+				9D849F6F4060AA3CEFCDE4AF /* SessionStore.swift in Sources */,
+				F4BEA97A8F5AF4F93DC3A503 /* SessionView.swift in Sources */,
+				8B13AE35FD3E80BC03096B58 /* SetupView.swift in Sources */,
+				200B839B91A9A13C9CFF1E89 /* SoundCatalog.swift in Sources */,
+				10CAF948290C73AEE2368FFF /* VitalReading.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		689BD1DE791016753800A154 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D64D69248E9BCE67E14A910B /* MeditationAlarmWidget */;
+			targetProxy = E9D6FAB769B905348439FA66 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		81D697F577ECC091AAD0B870 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Support/MeditationAlarm.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 524VAG6LTE;
+				INFOPLIST_FILE = "Support/App-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = com.windlessd.MeditationAlarm;
+				PRODUCT_NAME = MeditationAlarm;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		A95F5DAFBA3F669CF25FA1CC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Support/Widget.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 524VAG6LTE;
+				INFOPLIST_FILE = "Support/Widget-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = com.windlessd.MeditationAlarm.widget;
+				PRODUCT_NAME = MeditationAlarmWidget;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		BC092FD986F6C78104373B9F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				SDKROOT = iphoneos;
+			};
+			name = Release;
+		};
+		D20B530192EDD8CD37EDBFDB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Support/Widget.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 524VAG6LTE;
+				INFOPLIST_FILE = "Support/Widget-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = com.windlessd.MeditationAlarm.widget;
+				PRODUCT_NAME = MeditationAlarmWidget;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		E18A02C3D87C6C67FD555094 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+			};
+			name = Debug;
+		};
+		FCE0EE0283B090A8AD07971D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Support/MeditationAlarm.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 524VAG6LTE;
+				INFOPLIST_FILE = "Support/App-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = com.windlessd.MeditationAlarm;
+				PRODUCT_NAME = MeditationAlarm;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2D6FAD7DDE584407A04B4CCD /* Build configuration list for PBXProject "MeditationAlarm" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E18A02C3D87C6C67FD555094 /* Debug */,
+				BC092FD986F6C78104373B9F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		3B4645A9BC6825C65CC0D4B1 /* Build configuration list for PBXNativeTarget "MeditationAlarmWidget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D20B530192EDD8CD37EDBFDB /* Debug */,
+				A95F5DAFBA3F669CF25FA1CC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		4B8836A1681405E5930859D0 /* Build configuration list for PBXNativeTarget "MeditationAlarm" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				81D697F577ECC091AAD0B870 /* Debug */,
+				FCE0EE0283B090A8AD07971D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 6808912453079F975C0CA1C0 /* Project object */;
+}

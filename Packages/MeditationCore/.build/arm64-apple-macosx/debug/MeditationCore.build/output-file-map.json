@@ -1,0 +1,26 @@
+{
+  "": {
+    "swift-dependencies": "/Users/windless/WorkBuddy/MeditationAlarm/Packages/MeditationCore/.build/arm64-apple-macosx/debug/MeditationCore.build/master.swiftdeps"
+  },
+  "/Users/windless/WorkBuddy/MeditationAlarm/Packages/MeditationCore/Sources/MeditationCore/Health/VitalReading.swift": {
+    "dependencies": "/Users/windless/WorkBuddy/MeditationAlarm/Packages/MeditationCore/.build/arm64-apple-macosx/debug/MeditationCore.build/VitalReading.d",
+    "object": "/Users/windless/WorkBuddy/MeditationAlarm/Packages/MeditationCore/.build/arm64-apple-macosx/debug/MeditationCore.build/VitalReading.swift.o",
+    "swiftmodule": "/Users/windless/WorkBuddy/MeditationAlarm/Packages/MeditationCore/.build/arm64-apple-macosx/debug/MeditationCore.build/VitalReading~partial.swiftmodule",
+    "swift-dependencies": "/Users/windless/WorkBuddy/MeditationAlarm/Packages/MeditationCore/.build/arm64-apple-macosx/debug/MeditationCore.build/VitalReading.swiftdeps",
+    "diagnostics": "/Users/windless/WorkBuddy/MeditationAlarm/Packages/MeditationCore/.build/arm64-apple-macosx/debug/MeditationCore.build/VitalReading.dia"
+  },
+  "/Users/windless/WorkBuddy/MeditationAlarm/Packages/MeditationCore/Sources/MeditationCore/Session/IntervalSchedule.swift": {
+    "dependencies": "/Users/windless/WorkBuddy/MeditationAlarm/Packages/MeditationCore/.build/arm64-apple-macosx/debug/MeditationCore.build/IntervalSchedule.d",
+    "object": "/Users/windless/WorkBuddy/MeditationAlarm/Packages/MeditationCore/.build/arm64-apple-macosx/debug/MeditationCore.build/IntervalSchedule.swift.o",
+    "swiftmodule": "/Users/windless/WorkBuddy/MeditationAlarm/Packages/MeditationCore/.build/arm64-apple-macosx/debug/MeditationCore.build/IntervalSchedule~partial.swiftmodule",
+    "swift-dependencies": "/Users/windless/WorkBuddy/MeditationAlarm/Packages/MeditationCore/.build/arm64-apple-macosx/debug/MeditationCore.build/IntervalSchedule.swiftdeps",
+    "diagnostics": "/Users/windless/WorkBuddy/MeditationAlarm/Packages/MeditationCore/.build/arm64-apple-macosx/debug/MeditationCore.build/IntervalSchedule.dia"
+  },
+  "/Users/windless/WorkBuddy/MeditationAlarm/Packages/MeditationCore/Sources/MeditationCore/Session/SessionClock.swift": {
+    "dependencies": "/Users/windless/WorkBuddy/MeditationAlarm/Packages/MeditationCore/.build/arm64-apple-macosx/debug/MeditationCore.build/SessionClock.d",
+    "object": "/Users/windless/WorkBuddy/MeditationAlarm/Packages/MeditationCore/.build/arm64-apple-macosx/debug/MeditationCore.build/SessionClock.swift.o",
+    "swiftmodule": "/Users/windless/WorkBuddy/MeditationAlarm/Packages/MeditationCore/.build/arm64-apple-macosx/debug/MeditationCore.build/SessionClock~partial.swiftmodule",
+    "swift-dependencies": "/Users/windless/WorkBuddy/MeditationAlarm/Packages/MeditationCore/.build/arm64-apple-macosx/debug/MeditationCore.build/SessionClock.swiftdeps",
+    "diagnostics": "/Users/windless/WorkBuddy/MeditationAlarm/Packages/MeditationCore/.build/arm64-apple-macosx/debug/MeditationCore.build/SessionClock.dia"
+  }
+}

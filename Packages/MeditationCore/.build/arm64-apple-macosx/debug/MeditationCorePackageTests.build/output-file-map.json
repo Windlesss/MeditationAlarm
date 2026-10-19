@@ -1,0 +1,12 @@
+{
+  "": {
+    "swift-dependencies": "/Users/windless/WorkBuddy/MeditationAlarm/Packages/MeditationCore/.build/arm64-apple-macosx/debug/MeditationCorePackageTests.build/master.swiftdeps"
+  },
+  "/Users/windless/WorkBuddy/MeditationAlarm/Packages/MeditationCore/.build/arm64-apple-macosx/debug/MeditationCorePackageTests.derived/runner.swift": {
+    "dependencies": "/Users/windless/WorkBuddy/MeditationAlarm/Packages/MeditationCore/.build/arm64-apple-macosx/debug/MeditationCorePackageTests.build/runner.d",
+    "object": "/Users/windless/WorkBuddy/MeditationAlarm/Packages/MeditationCore/.build/arm64-apple-macosx/debug/MeditationCorePackageTests.build/runner.swift.o",
+    "swiftmodule": "/Users/windless/WorkBuddy/MeditationAlarm/Packages/MeditationCore/.build/arm64-apple-macosx/debug/MeditationCorePackageTests.build/runner~partial.swiftmodule",
+    "swift-dependencies": "/Users/windless/WorkBuddy/MeditationAlarm/Packages/MeditationCore/.build/arm64-apple-macosx/debug/MeditationCorePackageTests.build/runner.swiftdeps",
+    "diagnostics": "/Users/windless/WorkBuddy/MeditationAlarm/Packages/MeditationCore/.build/arm64-apple-macosx/debug/MeditationCorePackageTests.build/runner.dia"
+  }
+}
