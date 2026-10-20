@@ -1,4 +1,5 @@
 import ActivityKit
+import AppIntents
 import SwiftUI
 import WidgetKit
 
@@ -26,8 +27,11 @@ struct MeditationActivityWidget: Widget {
                 }
                 DynamicIslandExpandedRegion(.bottom) {
                     HStack(spacing: 12) {
-                        ControlButton(title: "暂停", systemImage: "pause", command: .togglePause)
-                        ControlButton(title: "结束", systemImage: "stop.fill", command: .end)
+                        ControlButton(title: "暂停", systemImage: "pause",
+                                      intent: MeditationControlIntent(command: .togglePause))
+                        // 结束不再静默执行：打开 App 弹二次确认（用户 2026-10-20 决策）
+                        ControlButton(title: "结束", systemImage: "stop.fill",
+                                      intent: MeditationEndIntent())
                     }
                     .frame(height: 36)
                 }
@@ -90,13 +94,13 @@ private struct TimeText: View {
 
 // MARK: - 按钮
 
-private struct ControlButton: View {
+private struct ControlButton<I: AppIntent>: View {
     let title: String
     let systemImage: String
-    let command: ControlBus.Command
+    let intent: I
 
     var body: some View {
-        Button(intent: MeditationControlIntent(command: command)) {
+        Button(intent: intent) {
             HStack(spacing: 5) {
                 Image(systemName: systemImage).font(.system(size: 11, weight: .ultraLight))
                 Text(title).font(.system(size: 12))
@@ -138,7 +142,8 @@ private struct LockScreenView: View {
 
             Spacer()
 
-            ControlButton(title: "结束", systemImage: "stop.fill", command: .end)
+            ControlButton(title: "结束", systemImage: "stop.fill",
+                          intent: MeditationEndIntent())
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 12)

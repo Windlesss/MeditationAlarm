@@ -15,8 +15,8 @@
 		10CAF948290C73AEE2368FFF /* VitalReading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1BB653F13C1A20BD1B83D9 /* VitalReading.swift */; };
 		197B596185DC78567FBCF2D6 /* VitalReading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1BB653F13C1A20BD1B83D9 /* VitalReading.swift */; };
 		200B839B91A9A13C9CFF1E89 /* SoundCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5EA2FD9F1E913371AACE527 /* SoundCatalog.swift */; };
+		21F6D6CDE21FDEA3CF36D9CB /* RecordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EFB1A8D285A096BA4ED63A0 /* RecordsView.swift */; };
 		225C7B5E4754DAE70D0F9711 /* SessionClock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4469CC74091AD1F40F99BE16 /* SessionClock.swift */; };
-		234F8FD7C109744F8E9D06E8 /* JournalPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B69BE071C715BF69EE8EC6 /* JournalPlaceholder.swift */; };
 		2861BDC6D474506DAD4F21D0 /* DebugLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30AF02E66EE0FA89202FF788 /* DebugLog.swift */; };
 		2C3ABB0C34C2A5BE520F0B7F /* MeditationActivityWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47B56CE03371BA5BC405AF6 /* MeditationActivityWidget.swift */; };
 		2DF8623B49803A0905403A4A /* LiveActivityController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504494561BCC8B3FFE222088 /* LiveActivityController.swift */; };
@@ -36,6 +36,7 @@
 		67DE588D346062897D1DA2FA /* bowl-small.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 1AAC5C2B3A241B134D5A4720 /* bowl-small.m4a */; };
 		69E7AD6B0866E6210F2E0236 /* bowl-small-hit.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 91D5FEB55D93B6161C3632A9 /* bowl-small-hit.m4a */; };
 		6C885A49E121B231F8188CA9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4068C0B2D255EA47CD6AAA4B /* AppDelegate.swift */; };
+		756DA2EDA94715721260F194 /* SessionJournal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035515497411D1293FDE49CC /* SessionJournal.swift */; };
 		763EB752D5E07289395226CE /* rin-strike.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 2AB318C120307E4D7CBF2E96 /* rin-strike.m4a */; };
 		7C57CF2D9C3A3DC112F24BFC /* bowl-small.caf in Resources */ = {isa = PBXBuildFile; fileRef = A4E5341E5271A8AE7D7359F6 /* bowl-small.caf */; };
 		7E15D4A7FDAB3B6CD7C2CB53 /* MeditationAlarmApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A39682BE8BE1E947B2CA1D /* MeditationAlarmApp.swift */; };
@@ -92,6 +93,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		035515497411D1293FDE49CC /* SessionJournal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionJournal.swift; sourceTree = "<group>"; };
 		07588419E4648C94EA3C726A /* sea.m4a */ = {isa = PBXFileReference; path = sea.m4a; sourceTree = "<group>"; };
 		0C335E937CBA33F175151D24 /* MeditationAlarmWidget.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = MeditationAlarmWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		14C3A1EB5FBE76DA721DD108 /* SessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionView.swift; sourceTree = "<group>"; };
@@ -102,10 +104,10 @@
 		33536AB0788A0A4A8F747D34 /* CREDITS.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CREDITS.md; sourceTree = "<group>"; };
 		341B36080A66259DAFA12A70 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		4068C0B2D255EA47CD6AAA4B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		41B69BE071C715BF69EE8EC6 /* JournalPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalPlaceholder.swift; sourceTree = "<group>"; };
 		4469CC74091AD1F40F99BE16 /* SessionClock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionClock.swift; sourceTree = "<group>"; };
 		504494561BCC8B3FFE222088 /* LiveActivityController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveActivityController.swift; sourceTree = "<group>"; };
 		553C3DBFB8EDEA723A3859F1 /* bowl-large-hit.m4a */ = {isa = PBXFileReference; path = "bowl-large-hit.m4a"; sourceTree = "<group>"; };
+		5EFB1A8D285A096BA4ED63A0 /* RecordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsView.swift; sourceTree = "<group>"; };
 		636EC2CC400CD9EA93C5D7AB /* chime-tubebell.m4a */ = {isa = PBXFileReference; path = "chime-tubebell.m4a"; sourceTree = "<group>"; };
 		67E590F0545AF747A104D393 /* MeditationAlarm.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = MeditationAlarm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		694C14F51AB826E99FBFE70D /* MeditationControlIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeditationControlIntent.swift; sourceTree = "<group>"; };
@@ -267,7 +269,7 @@
 		62CAF2D6181BA9F392CFF0F4 /* Records */ = {
 			isa = PBXGroup;
 			children = (
-				41B69BE071C715BF69EE8EC6 /* JournalPlaceholder.swift */,
+				5EFB1A8D285A096BA4ED63A0 /* RecordsView.swift */,
 			);
 			path = Records;
 			sourceTree = "<group>";
@@ -291,6 +293,7 @@
 		9B10761AB21C67B835496F48 /* Persistence */ = {
 			isa = PBXGroup;
 			children = (
+				035515497411D1293FDE49CC /* SessionJournal.swift */,
 				6E76736484536D10917DA872 /* SessionStore.swift */,
 			);
 			path = Persistence;
@@ -565,16 +568,17 @@
 				8F693473BEFD664C3E072E9B /* DebugLog.swift in Sources */,
 				850ACDE81078E95247C64803 /* DurationCapsulePicker.swift in Sources */,
 				48B49765A2B668109EE3D04F /* IntervalSchedule.swift in Sources */,
-				234F8FD7C109744F8E9D06E8 /* JournalPlaceholder.swift in Sources */,
 				2DF8623B49803A0905403A4A /* LiveActivityController.swift in Sources */,
 				07B4F54B813910E586E7B032 /* MeditationActivityAttributes.swift in Sources */,
 				7E15D4A7FDAB3B6CD7C2CB53 /* MeditationAlarmApp.swift in Sources */,
 				8D43A83F81C33EA1C8AD5EFD /* MeditationControlIntent.swift in Sources */,
 				DBD19786B0C7A7C08DA3920F /* Palette.swift in Sources */,
+				21F6D6CDE21FDEA3CF36D9CB /* RecordsView.swift in Sources */,
 				501AC8F689201D3E4C322F60 /* ReminderScheduler.swift in Sources */,
 				CEF520D20DB7D0AB4FA944C1 /* RootView.swift in Sources */,
 				225C7B5E4754DAE70D0F9711 /* SessionClock.swift in Sources */,
 				89675304BE1127B20A5EE2AD /* SessionController.swift in Sources */,
+				756DA2EDA94715721260F194 /* SessionJournal.swift in Sources */,
 				9D849F6F4060AA3CEFCDE4AF /* SessionStore.swift in Sources */,
 				F4BEA97A8F5AF4F93DC3A503 /* SessionView.swift in Sources */,
 				8B13AE35FD3E80BC03096B58 /* SetupView.swift in Sources */,

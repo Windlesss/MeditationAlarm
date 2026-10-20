@@ -1,7 +1,7 @@
-# 第一阶段开发状态快照
+# 开发状态快照
 
-> 快照时间：2026-10-19。本文档随 git 上传，供阶段交接与 review 使用。
-> 需求与决策的完整记录见 `REQUIREMENTS.md`（含 Q1–Q15 决策链），视觉规范见 `DESIGN.md`。
+> 快照时间：2026-10-20（第一阶段 + 第二阶段记录）。本文档随 git 上传，供阶段交接与 review 使用。
+> 需求与决策的完整记录见 `REQUIREMENTS.md`（含 Q1–Q16 决策链），视觉规范见 `DESIGN.md`。
 
 ## 一句话定位
 
@@ -29,7 +29,16 @@ iOS 冥想闹钟：设定时长与间隔提示后开始，前台 / 后台 / 锁�
 - 屏幕常亮：`isIdleTimerDisabled == (phase == .running)` 不变量，无开关——仅运行中常亮，暂停 / 结束 / 退后台恢复自动锁屏
 - 本地通知：**已停用**（用户决策，见 Q14）——方案 B 之后全场景走音频，不再申请权限、不再排程；`ReminderScheduler` 与 `chimes-caf` 素材保留不用
 
-### 4. 视觉资产
+### 4. 冥想记录（第二阶段，2026-10-20）
+
+- **落库**（`SessionJournal` 唯一写入口）：开始建 open 记录 → 暂停/继续写时钟快照 → 结束结算。实际时长 = segments 累加（暂停不计）；结束方式 natural / manual
+- **短会话弹框**：实际时长 < 阈值（`#if DEBUG` 60s / 正式 180s）结束时问「是否记录」，默认记录。结束流程与记录决策完全解耦（setup 是 setup，记录是记录）
+- **LA 结束按钮改造**：点结束 → 打开 App → 弹二次确认 → 才执行结束（FR-2.3）。指令走 App Group 标志位（Darwin 通知冷启动必丢）；暂停/继续保持静默 Intent
+- **跨启动恢复**：App 被杀后重启读 open 记录还原时钟/配置/音频/实时活动
+- **记录页**：统计头部（次数 / 累计时长 / 连续天数）+ 月历热力图（青瓷四档色阶）+ 按天分组列表 + 详情卡片 + 左滑删除（二次确认）
+- **防御性设计**：作废记录用 `isDiscarded` 标记而非 delete（SwiftData 对带 relationship 的模型 delete + save 在本环境稳定失效，save 静默失败记录原样留库）；开新会话前闭合残留 open 记录；恢复只认有运行数据的 open 记录
+
+### 5. 视觉资产
 - 「圆相」Logo + AppIcon（浅 / 深色），由 `Resources/Logo/make_logo.py` 生成
 - 设计语言：宣纸底 `#F7F5F1`、青瓷 `#7E9E92` / 选中底 `#E6EFEB`、超细字重、胶囊选择器、空心圆环开始按钮（详见 `DESIGN.md`）
 
@@ -37,14 +46,21 @@ iOS 冥想闹钟：设定时长与间隔提示后开始，前台 / 后台 / 锁�
 
 ```
 MeditationAlarmApp/
-  App/MeditationAlarmApp.swift     入口；scenePhase 前后台同链；#if DEBUG -selfTest 钩子（2min/25s）
-  Session/SessionController.swift  方案 B 调度链、结束分流、常亮不变量
+  App/MeditationAlarmApp.swift     入口；scenePhase 前后台同链；#if DEBUG -selfTest / -seedRecords 钩子
+  Session/SessionController.swift  方案 B 调度链、结束分流、常亮不变量、结束确认状态机、跨启动恢复
   Audio/AudioEngine.swift          播放、静音守护、windDownSession 收尾
+  Persistence/SessionStore.swift   SwiftData 模型（SessionRecord 一身兼两职：记录 + 恢复）
+  Persistence/SessionJournal.swift 记录写入服务（begin / checkpoint / finish / commit / discard / delete / seed）
   Features/Setup/SetupView.swift   设置页
   Features/Setup/DurationCapsulePicker.swift  时长胶囊（DurationOption 档位表 + 组件）
-  Features/Root/RootView.swift     根视图
+  Features/Session/SessionView.swift  计时页
+  Features/Records/RecordsView.swift   记录页（统计 / 日历 / 列表 / 详情 / 删除）
+  Features/Root/RootView.swift     根视图 + 结束确认 / 短会话记录两个 alert 状态机
+  LiveActivity/LiveActivityController.swift  实时活动生命周期
+  Notifications/ReminderScheduler.swift  通知调度（已停用，仅 disarm 清理残留）
+MeditationAlarmWidget/             灵动岛与锁屏 Live Activity
 Packages/MeditationCore/           计时 / IntervalSchedule / DurationPolicy（App 与 Widget 两 target 直编，不走 SwiftPM 依赖）
-Shared/Palette.swift               色板与排版（两 target 共用）
+Shared/                            两 target 共用：Palette / MeditationControlIntent / MeditationEndIntent / ControlBus / ActivityAttributes / DebugLog
 Resources/Audio/                   提示音 + 背景音 + keepalive-silence + chimes-caf（保留不用）
 project.yml                        XcodeGen 配置（iOS 17.0，team 524VAG6LTE）
 ```
@@ -58,12 +74,13 @@ xcodebuild -project MeditationAlarm.xcodeproj -scheme MeditationAlarm \
   -derivedDataPath Build/DerivedData build
 ```
 
-- 内核单测：`cd Packages/MeditationCore && swift test`（IntervalSchedule / DurationPolicy）
-- 调度链自测：Debug 构建带 `-selfTest` 启动参数，压缩为 2 分钟会话 + 25 秒间隔，看日志验证 GCD 链触发
+- 内核单测：`cd Packages/MeditationCore && swift test`（IntervalSchedule / SessionClock / VitalsBook，40 个）
+- 调度链自测：Debug 构建带 `-selfTest` 启动参数（35 秒会话 + 12 秒间隔 + 雨声），看日志验证 GCD 链触发；短于 60s 阈值会顺带验证记录弹框
+- 记录页自测：`-seedRecords` 造 9 条跨日期演示记录（含一个断档验证连续天数）；`defaults write <bundle-id> debug.openRecords -bool true` 可直接进记录页
 
 ## 待真机验证 ⏳
 
-模拟器已过（构建 + 四态截图 + selfTest 日志），以下需真机：
+模拟器已过（构建 + 记录页四态 + 短/长会话落库 + 40 单测），以下需真机：
 
 1. 前台回归：间隔音 / 背景音正常
 2. 后台未锁屏：间隔音正常播放且**无通知**
@@ -74,9 +91,14 @@ xcodebuild -project MeditationAlarm.xcodeproj -scheme MeditationAlarm \
 7. 自动锁屏设 30s 验证常亮
 8. 时长胶囊：横滑跟手性、松手截断位置、点选后自动居中的节奏
 9. 键盘收起：点任意处（尤其滚动区空白处）是否顺手
+10. **LA 结束按钮**：点结束 → App 打开到前台 → 弹二次确认 → 确认后单声收尾 + 落库（含 App 已被杀时的冷启动路径）
+11. **短会话弹框**：真机上开一场 <3 分钟的会话自然结束，确认弹框默认「记录」
+12. **跨启动恢复**：会话运行中划掉 App → 重新打开 → 计时/配置/实时活动恢复；再点结束能正常结算
 
 ## 已知边界
 
 - 划掉 App 后 iOS 不允许进程再发声（通知除外，而通知已按用户决策停用）——这是方案 B 的唯一边界
 - `isIdleTimerDisabled` 拦不住侧边按钮手动锁屏（无公开 API）
 - 部署目标 iOS 17.0，最低屏宽 375pt（SE3），无 320pt 老屏适配
+- SwiftData 对带 relationship 的模型 `delete + save` 在本环境稳定失效（save 静默失败、记录原样留库）——已用「作废标记」等价方案绕过，删功能本身可用（`SessionJournal.delete` 走同一 context，真机需复核）
+- 偶发「双 start」竞态（install/launch 时序相关，4 轮复现 2 轮）：已由 begin() 闭合残留 open 记录 + restore 空壳跳过 + @Query 过滤三重防护兜底（最坏 = 一条不可见的作废记录）

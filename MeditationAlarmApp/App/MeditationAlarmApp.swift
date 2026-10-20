@@ -19,7 +19,9 @@ struct MeditationAlarmApp: App {
         _controller = State(initialValue: controller)
 
         // 灵动岛 / 锁屏按钮的落点。Widget 进程里只能跨进程发信号，
-        // 真正干活的是这里 —— 少了这个监听，岛上的「暂停 / 结束」按了没反应。
+        // 真正干活的是这里 —— 少了这个监听，岛上的「暂停」按了没反应。
+        // 「结束」已改走 MeditationEndIntent（打开 App 后弹确认，见 RootView），
+        // 这条 Darwin 通道只处理暂停 / 继续。
         _controlListener = State(initialValue: DarwinListener { command in
             Task { @MainActor in
                 switch command {
@@ -30,10 +32,16 @@ struct MeditationAlarmApp: App {
                     default: break
                     }
                 case .end:
-                    controller.end(reason: .manual)
+                    break
                 }
             }
         })
+
+        // 跨启动恢复：App 被杀后重启，内存状态全丢但实时活动还在。
+        // 这里先把会话找回来，LA 的「结束」才有对象可执行。
+        Task { @MainActor in
+            controller.restoreIfNeeded()
+        }
 
         #if DEBUG
         // 自测钩子：`xcrun simctl launch <udid> com.windlessd.MeditationAlarm -selfTest`
@@ -44,6 +52,11 @@ struct MeditationAlarmApp: App {
         if CommandLine.arguments.contains("-selfTest") {
             Task { @MainActor in
                 try? await Task.sleep(nanoseconds: 2_000_000_000)
+                // 守卫：恢复链路或异常重复触发时，不覆盖进行中的会话
+                guard controller.phase == .idle else {
+                    dbgLog("[selfTest] skipped, phase = \(controller.phase)")
+                    return
+                }
                 dbgLog("[selfTest] starting, phase = \(controller.phase)")
                 controller.start(.init(
                     plannedDuration: 35,
@@ -54,6 +67,13 @@ struct MeditationAlarmApp: App {
                     wasAutoAdjusted: false
                 ))
                 dbgLog("[selfTest] started, phase = \(controller.phase), islandActive = \(LiveActivityController.shared.isActive)")
+            }
+        }
+        // 记录页验证钩子：`-seedRecords` 造 9 条跨日期的历史记录（含今天两条），
+        // 用于不依赖真实冥想就能检查统计 / 日历热力图 / 列表 / 详情 / 删除。
+        if CommandLine.arguments.contains("-seedRecords") {
+            Task { @MainActor in
+                SessionJournal.shared.seedDemoRecords()
             }
         }
         #endif
@@ -69,6 +89,11 @@ struct MeditationAlarmApp: App {
                         case .active:
                             // 前台：停静音守护、清通知残留、恢复常亮、自愈实时活动
                             controller.enterForeground()
+                            // LA「结束」按钮的落点：intent 已把 App 带到前台并留下标志，
+                            // 这里消费它 → 弹二次确认（用户 2026-10-20 决策）。
+                            if MeditationEndIntent.consumePending(), controller.isActive {
+                                controller.requestEnd()
+                            }
 
                         case .background:
                             // 后台：调度链继续跑（GCD 不受锁屏节流影响）；

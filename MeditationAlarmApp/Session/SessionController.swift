@@ -178,6 +178,10 @@ final class SessionController {
         )
         LiveActivityController.shared.start(clock: clock, summary: sessionSummary)
 
+        // 落 open 记录：结束前它一直带着时钟快照（暂停 / 继续时更新），
+        // App 被杀后重启靠它恢复会话（restoreIfNeeded）。
+        SessionJournal.shared.begin(configuration: configuration)
+
         // 通知已停用（2026-10-19 决策）：不申请权限、不排程，
         // 这里只清掉上一版可能残留的排程。
         ReminderScheduler.disarm()
@@ -193,6 +197,7 @@ final class SessionController {
         chimeSource?.cancel()
         chimeSource = nil
         phase = .paused
+        SessionJournal.shared.checkpoint(clock)
         syncIdleTimer()          // 暂停 → 恢复自动锁屏倒计时
         LiveActivityController.shared.sync(clock: clock)
     }
@@ -202,6 +207,7 @@ final class SessionController {
         clock = clock.resuming(at: Date())
         tick = Date()
         phase = .running
+        SessionJournal.shared.checkpoint(clock)
         syncIdleTimer()          // 继续 → 重新常亮
         LiveActivityController.shared.sync(clock: clock)
         scheduleNextChime()
@@ -230,6 +236,9 @@ final class SessionController {
         AudioEngine.shared.playEndingChime(
             ChimeCatalog.resolve(endChimeID), volume: chimeVolume, style: style
         )
+        // 记录结算交给 journal（setup 是 setup，记录是记录）：够长静默落库，
+        // 不够则挂起待用户决定，UI 层观察 journal.pendingConfirmation 弹框。
+        SessionJournal.shared.finish(reason: reason, segments: segments)
         return segments
     }
 
@@ -248,6 +257,77 @@ final class SessionController {
         LiveActivityController.shared.end()   // 幂等
     }
 
+    // MARK: 结束确认（用户 2026-10-20 决策：LA 结束按钮与 App 内结束都不再直接结束）
+
+    /// 结束确认挂起中。UI（RootView）观察此属性弹二次确认框，满足 FR-2.3。
+    private(set) var pendingEndConfirmation = false
+
+    /// 请求结束：只挂起，不执行。App 内结束按钮与 LA「打开 App 后确认」共用此入口。
+    func requestEnd() {
+        guard isActive else { return }
+        pendingEndConfirmation = true
+    }
+
+    /// 用户取消：会话继续。同时清掉 LA 传来的待处理标志，避免残留。
+    func cancelEnd() {
+        pendingEndConfirmation = false
+        MeditationEndIntent.clearPending()
+    }
+
+    /// 用户确认：走完整结束逻辑（单声收尾 + 落库 / 短会话弹框）。
+    func confirmEnd() {
+        guard pendingEndConfirmation else { return }
+        pendingEndConfirmation = false
+        MeditationEndIntent.clearPending()
+        _ = end(reason: .manual)
+    }
+
+    // MARK: 跨启动恢复（用户 2026-10-20 新增）
+
+    /// App 被杀后重启：内存状态全丢，但实时活动还在（系统持有）。
+    /// 若存在 open 记录，还原 clock / phase / 配置，让 LA 的「结束」有对象可执行，
+    /// 用户取消后会话也能正常继续。
+    func restoreIfNeeded() {
+        guard !isActive, let record = SessionJournal.shared.unfinishedRecord() else { return }
+        // 只恢复「死时在跑」或「暂停过」的会话。两者皆无的 open 记录是残留
+        // （如历史版本撤回失败留下的空壳），恢复它只会得到一场假暂停。
+        guard record.segmentStart != nil || record.accumulated > 0 else {
+            dbgLog("[restore] skipped empty open record \(record.id)")
+            return
+        }
+        let segments = record.segments.flatMap {
+            try? JSONDecoder().decode([TimedSegment].self, from: $0)
+        } ?? []
+        clock = SessionClock(
+            segmentStart: record.segmentStart,
+            accumulated: record.accumulated,
+            finishedSegments: segments,
+            plannedDuration: record.plannedDuration,
+            interval: record.interval
+        )
+        chimeID = record.chimeID
+        endChimeID = record.endChimeID
+        ambientID = record.ambientID
+        chimeVolume = record.chimeVolume
+        ambientVolume = record.ambientVolume
+        wasAutoAdjusted = record.wasAutoAdjusted
+        tick = Date()
+        // segmentStart 非 nil = 死时在跑；nil = 死时暂停
+        phase = record.segmentStart != nil ? .running : .paused
+
+        // 进程死后音频会话随之消亡，重起才能继续发声 / 守活
+        AudioEngine.shared.beginSession(
+            ambient: AmbientCatalog.resolve(record.ambientID),
+            chimeVolume: record.chimeVolume,
+            ambientVolume: record.ambientVolume
+        )
+        LiveActivityController.shared.start(clock: clock, summary: sessionSummary)
+        syncIdleTimer()
+        startUITimer()
+        scheduleNextChime()
+        dbgLog("[restore] recovered open session started at \(record.startedAt)")
+    }
+
     /// App 回前台自检：重建消失的实时活动（系统 8 小时上限 / 用户误杀 App），
     /// 重排调度链（会话若已在挂起期间到头，这里会补一次自然结束）。
     func reconcileOnForeground() {
@@ -262,9 +342,11 @@ final class SessionController {
 
     // MARK: 前后台切换
 
-    /// 转前台：停静音守护、清通知残留、按会话状态恢复常亮、自愈实时活动与调度链。
+    /// 转前台：恢复可能被杀的会话、停静音守护、清通知残留、按会话状态恢复常亮、
+    /// 自愈实时活动与调度链。
     func enterForeground() {
         isInBackground = false
+        restoreIfNeeded()      // App 被杀重启：先把会话找回来（无 open 记录则 no-op）
         AudioEngine.shared.stopSilentKeepAlive()
         ReminderScheduler.disarm()
         syncIdleTimer()

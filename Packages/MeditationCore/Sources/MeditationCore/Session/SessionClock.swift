@@ -4,7 +4,7 @@ import Foundation
 
 /// 一段「真正在冥想」的时间区间。
 /// 暂停的时长不在任何区间内 —— 这是 HealthKit 正念分钟数不虚报的关键。
-public struct TimedSegment: Equatable, Sendable, Hashable {
+public struct TimedSegment: Equatable, Sendable, Hashable, Codable {
     public let start: Date
     public let end: Date
 

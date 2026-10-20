@@ -14,6 +14,7 @@
 - **屏幕常亮** —— 仅计时运行中阻止自动锁屏，暂停 / 结束 / 退后台自动恢复
 - **灵动岛 / 锁屏** —— Live Activity 实时显示剩余时间
 - **智能联动** —— 时长短于间隔时，开始自动扩展为间隔的 5 倍
+- **冥想记录** —— 累计次数 / 时长 / 连续天数、日历热力图、按天历史列表、单条删除；实时活动上的「结束」先回 App 二次确认；不足 1 分钟的会话询问是否记录
 
 ## 运行
 
@@ -40,7 +41,8 @@ project.yml                  XcodeGen 工程配置
 ## 开发备注
 
 - 内核单测：`cd Packages/MeditationCore && swift test`
-- 调度链自测：Debug 构建带 `-selfTest` 启动参数（压缩为 2 分钟会话 + 25 秒间隔），从日志验证间隔 / 结束音的触发
+- 调度链自测：Debug 构建带 `-selfTest` 启动参数（35 秒会话 + 12 秒间隔 + 雨声背景音），从日志验证 GCD 链触发
+- 记录页自测：`-seedRecords` 造 9 条演示记录；`defaults write com.windlessd.MeditationAlarm debug.openRecords -bool true` 可直接进记录页
 - 本地通知已按需求决策停用，提醒全部走音频通道；`ReminderScheduler` 保留未用
 
 ## 文档
