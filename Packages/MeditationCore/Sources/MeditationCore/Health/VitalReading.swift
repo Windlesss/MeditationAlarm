@@ -129,6 +129,15 @@ public struct VitalsBook: Sendable, Equatable {
         return count
     }
 
+    /// 用**已入库**的去重键预热。
+    ///
+    /// 跨启动恢复的场景：App 被杀后重启，采样器会把同一时间窗的样本重新捞一遍。
+    /// 不预热就会重复入库 —— 而 `VitalRecord.dedupeKey` 是唯一索引，冲突会让整批
+    /// save 失败。预热后旧样本被 seen 挡住，恢复会话只增量收新样本。
+    public mutating func prewarm(keys: [String]) {
+        seen.formUnion(keys)
+    }
+
     public func readings(of kind: VitalKind) -> [VitalReading] {
         readings.filter { $0.kind == kind }.sorted { $0.startDate < $1.startDate }
     }

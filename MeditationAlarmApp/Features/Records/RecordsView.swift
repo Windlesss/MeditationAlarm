@@ -374,26 +374,35 @@ private struct RecordDetailSheet: View {
 
     var body: some View {
         NavigationStack {
-            VStack(alignment: .leading, spacing: 0) {
-                detailRow("开始", record.startedAt.formatted(date: .abbreviated, time: .shortened))
-                detailRow("结束", record.endedAt?.formatted(date: .abbreviated, time: .shortened) ?? "—")
-                detailRow("实际时长", RecordsView.durationText(record.billableSeconds))
-                detailRow("计划时长", record.plannedDuration.map { RecordsView.durationText($0) } ?? "永久")
-                detailRow("结束方式", record.endReason == "natural" ? "自然结束" : "手动结束")
-                if let interval = record.interval, interval > 0 {
-                    detailRow("间隔提示", IntervalOption.fixed(interval).label)
-                } else {
-                    detailRow("间隔提示", "无")
+            ScrollView {
+                VStack(alignment: .leading, spacing: 0) {
+                    detailRow("开始", record.startedAt.formatted(date: .abbreviated, time: .shortened))
+                    detailRow("结束", record.endedAt?.formatted(date: .abbreviated, time: .shortened) ?? "—")
+                    detailRow("实际时长", RecordsView.durationText(record.billableSeconds))
+                    detailRow("计划时长", record.plannedDuration.map { RecordsView.durationText($0) } ?? "永久")
+                    detailRow("结束方式", record.endReason == "natural" ? "自然结束" : "手动结束")
+                    if let interval = record.interval, interval > 0 {
+                        detailRow("间隔提示", IntervalOption.fixed(interval).label)
+                    } else {
+                        detailRow("间隔提示", "无")
+                    }
+                    detailRow("提示音", ChimeCatalog.resolve(record.chimeID).name)
+                    detailRow("背景音", record.ambientID.flatMap { AmbientCatalog.resolve($0)?.name } ?? "无")
+                    if record.wasAutoAdjusted {
+                        detailRow("自动调整", "时长不足间隔，已扩展")
+                    }
+                    // 健康数据（第三阶段 v3a）：无样本时整组不渲染
+                    if !record.vitals.isEmpty {
+                        VStack(alignment: .leading, spacing: 0) {
+                            Divider().background(Palette.hairline).padding(.vertical, 16)
+                            RecordVitalsSections(record: record)
+                        }
+                    }
                 }
-                detailRow("提示音", ChimeCatalog.resolve(record.chimeID).name)
-                detailRow("背景音", record.ambientID.flatMap { AmbientCatalog.resolve($0)?.name } ?? "无")
-                if record.wasAutoAdjusted {
-                    detailRow("自动调整", "时长不足间隔，已扩展")
-                }
-                Spacer()
+                .padding(.horizontal, 24)
+                .padding(.top, 16)
+                .padding(.bottom, 32)
             }
-            .padding(.horizontal, 24)
-            .padding(.top, 16)
             .background(Palette.paper)
             .navigationTitle("冥想详情")
             .navigationBarTitleDisplayMode(.inline)

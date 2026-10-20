@@ -12,6 +12,8 @@
 - **记录链（第二阶段）**：`SessionJournal` 唯一写入口；SessionRecord 一身兼两职（已闭合记录 + open 恢复记录）；短会话（DEBUG 60s / 正式 180s）弹框问是否记录，默认记录；作废用 `isDiscarded` 标记**不用 delete**（SwiftData delete+save 在本环境稳定失效）；连续天数 = 当天任意时长算 1 天、从今天往回严格数
 - **LA 结束走 App**：结束按钮 = MeditationEndIntent（普通 AppIntent + openAppWhenRun + App Group 标志位）；App 激活后消费标志 → 弹二次确认 → confirmEnd；暂停/继续保持静默 LiveActivityIntent
 - **跨启动恢复**：restoreIfNeeded 读 open 记录还原时钟/配置/音频/实时活动；只认 segmentStart != nil || accumulated > 0 的记录（防空壳误恢复）
+- **健康数据 v3a 决策（2026-10-20 用户拍板）**：无开关、无 setup 配置——授权自动请求、采样全后台运行；正念写入**承接记录逻辑**（写记录才写、作废不写）；作废会话不写健康 App；导出只做本 App 备份导入（考虑加密）；iCloud 下一阶段。授权时机=首次会话开始；WCSession.isPaired 分流（无手表只请求写）
+- **v3a 架构（已实现）**：HealthKitService（授权+正念写入+前台重试）/ WatchPresence（isPaired）/ VitalSampler（anchored 即时 + observer 唤醒走 pollFallback + 30s 兜底，uuid 去重 prewarm 全量键）→ VitalRecord 落库；VitalSectionView 三态渲染；小结页 onChange lastClosedRecordID 轻推一格。**坑：HKQuery 对象二次 execute 直接 SIGABRT——observer 唤醒绝不重跑 anchored query**
 - **MeditationCore 双 target 直编**（不走 SwiftPM 依赖——Xcode 包解析在受限环境不可用），但 `swift test` 仍可用（沙箱外跑）
 - **构建链**：`xcodegen generate` → `xcodebuild`；本机 xcodegen 在 `/Users/windless/.workbuddy/binaries/xcodegen/bin/`
 

@@ -11,6 +11,9 @@ struct RootView: View {
     /// 二级路由。目前只有记录页；调试后门可直接 push 它。
     @State private var path = NavigationPath()
 
+    /// 健康小结页展示的记录（第三阶段 v3a）。记录闭合且本场有健康数据时轻推一格。
+    @State private var summaryRecord: SessionRecord?
+
     private enum RecordsRoute: Hashable {
         case records
     }
@@ -42,6 +45,11 @@ struct RootView: View {
             if UserDefaults.standard.bool(forKey: "debug.openRecords") {
                 path.append(RecordsRoute.records)
             }
+            // 调试后门：直接展示最新记录的小结页（模拟器验证健康 UI 用）。
+            if UserDefaults.standard.bool(forKey: "debug.openSummary"),
+               let record = journal.latestClosedRecord() {
+                summaryRecord = record
+            }
         }
         // 结束二次确认（FR-2.3）。App 内结束按钮与 LA「结束 → 打开 App」共用。
         .alert("结束本次冥想？", isPresented: endConfirmAlert) {
@@ -56,6 +64,18 @@ struct RootView: View {
             Button("不记录", role: .cancel) { journal.discardPending() }
         } message: {
             Text(pendingRecordMessage)
+        }
+        // 健康小结页（第三阶段 v3a）：记录闭合且本场有健康数据时呈现。
+        // 无数据不呈现 —— 不留空页（FR-10.5 的 UI 侧体现）。
+        .onChange(of: journal.lastClosedRecordID) { _, newID in
+            guard let newID else { return }
+            if let record = journal.record(id: newID), !record.vitals.isEmpty {
+                summaryRecord = record
+            }
+            journal.clearLastClosed()
+        }
+        .sheet(item: $summaryRecord) { record in
+            SessionSummaryView(record: record)
         }
     }
 

@@ -31,8 +31,11 @@ playground.xcworkspace
 
 .build/
 
-# Local build output (xcodebuild DERIVED_DATA path for this project)
-/Build/DerivedData/
+# Local build output (this project builds into Build/)
+/Build/
+
+# macOS
+.DS_Store
 
 # CocoaPods
 #

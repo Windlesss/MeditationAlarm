@@ -30,6 +30,15 @@ final class SessionJournal {
     /// 结束走完、时长低于阈值时挂起的待确认记录。UI 观察此属性弹框。
     private(set) var pendingConfirmation: PendingSession?
 
+    /// 最近一条闭合且可能携带健康数据的记录。UI 观察它呈现小结页，
+    /// 展示后调 `clearLastClosed` 清空。仅在有健康数据时才值得呈现 ——
+    /// 由 UI 层判断（record.vitals 非空）。
+    private(set) var lastClosedRecordID: UUID?
+
+    func clearLastClosed() {
+        lastClosedRecordID = nil
+    }
+
     /// 待确认的草稿。`recordID` 指向那条已被标记作废的开放记录 ——
     /// 用户选「记录」时把它写活（改属性），不新建、不删除。
     struct PendingSession: Equatable {
@@ -52,7 +61,9 @@ final class SessionJournal {
     // MARK: 会话生命周期
 
     /// 开始时建 open 记录。结束前它一直带着最新时钟快照。
-    func begin(configuration: SessionController.Configuration) {
+    /// - Returns: 新建的记录 —— 调用方需要 `id` 与 `startedAt` 给健康采样器挂钩子。
+    @discardableResult
+    func begin(configuration: SessionController.Configuration) -> SessionRecord {
         // 防御：开新会话前若还有 open 记录，说明是异常残留（历史撤回失败、
         // 双 start 竞态）。先闭合为作废 —— 绝不留永驻空壳被恢复逻辑误判。
         if let stale = openRecord() {
@@ -77,6 +88,7 @@ final class SessionJournal {
         )
         context.insert(record)
         save()
+        return record
     }
 
     /// 暂停 / 继续时把时钟快照写进 open 记录 —— App 被杀后靠它恢复。
@@ -94,6 +106,10 @@ final class SessionJournal {
         let seconds = segments.reduce(0) { $0 + $1.duration }
         let reasonRaw = reason == .natural ? "natural" : "manual"
 
+        // segments 保留不清零：正念写入（含前台重试）要靠它还原区间。
+        // open 记录的恢复逻辑只认 endedAt == nil 的记录，留着无副作用。
+        record.segments = try? JSONEncoder().encode(segments)
+
         if seconds >= Self.recordThreshold {
             // 够长：正常闭合
             record.endedAt = Date()
@@ -102,8 +118,10 @@ final class SessionJournal {
             record.isDiscarded = false
             record.accumulated = 0
             record.segmentStart = nil
-            record.segments = nil
             save()
+            lastClosedRecordID = record.id
+            // 正念写入承接记录逻辑（用户 2026-10-20 决策）：这条记录成立了 → 写健康 App
+            scheduleMindfulWrite(recordID: record.id, segments: segments)
         } else {
             // 不够：先闭合但标记作废（撤回靠 delete 不可靠，见字段注释），
             // 挂起待确认；用户选「记录」再把同一条写活
@@ -113,7 +131,6 @@ final class SessionJournal {
             record.isDiscarded = true
             record.accumulated = 0
             record.segmentStart = nil
-            record.segments = nil
             save()
             pendingConfirmation = PendingSession(
                 recordID: record.id,
@@ -138,13 +155,70 @@ final class SessionJournal {
             record.endReason = pending.reasonRaw
             record.isDiscarded = false
             save()
+            lastClosedRecordID = record.id
+            // 承接记录逻辑：用户选了「记录」→ 这条成立 → 写健康 App
+            let segments = record.segments.flatMap {
+                try? JSONDecoder().decode([TimedSegment].self, from: $0)
+            } ?? []
+            scheduleMindfulWrite(recordID: record.id, segments: segments)
         }
         pendingConfirmation = nil
     }
 
     /// 用户在弹框里选「不记录」—— 记录保持作废状态留在库里，不进任何展示。
+    /// 作废记录**不写**健康 App（用户 2026-10-20 决策）。
     func discardPending() {
         pendingConfirmation = nil
+    }
+
+    // MARK: 正念分钟数写入（第三阶段 v3a）
+
+    /// 触发一次正念写入。fire-and-forget：成功回写 `mindfulWritten` 标记，
+    /// 失败留给前台重试。写授权状态不可重试判断（读的不可查、写的可查），
+    /// 未授权时 `HealthKitService` 直接返回 false。
+    private func scheduleMindfulWrite(recordID: UUID, segments: [TimedSegment]) {
+        Task { @MainActor in
+            let written = await HealthKitService.shared.writeMindfulSession(segments: segments)
+            if written, let record = record(id: recordID) {
+                record.mindfulWritten = true
+                save()
+            }
+        }
+    }
+
+    /// 前台重试：被拒 / 写失败的正念写入，在用户改主意去设置里授权后补写。
+    /// 每次前台只处理未完成的闭合记录（作废的不写）。
+    func retryMindfulWrites() {
+        let descriptor = FetchDescriptor<SessionRecord>(
+            predicate: #Predicate<SessionRecord> {
+                $0.endedAt != nil && !$0.isDiscarded && !$0.mindfulWritten
+            }
+        )
+        guard let pending = try? context.fetch(descriptor), !pending.isEmpty else { return }
+        dbgLog("[journal] retrying mindful writes for \(pending.count) record(s)")
+        for record in pending {
+            let segments = record.segments.flatMap {
+                try? JSONDecoder().decode([TimedSegment].self, from: $0)
+            } ?? []
+            scheduleMindfulWrite(recordID: record.id, segments: segments)
+        }
+    }
+
+    // MARK: 健康数据查询（UI 与采样器共用）
+
+    /// 某条记录的全部体征样本（按时间排序）。
+    func vitals(for recordID: UUID) -> [VitalRecord] {
+        guard let record = record(id: recordID) else { return [] }
+        return record.vitals.sorted { $0.startDate < $1.startDate }
+    }
+
+    /// 最新一条闭合且未作废的记录（调试后门直接开小结页用）。
+    func latestClosedRecord() -> SessionRecord? {
+        let descriptor = FetchDescriptor<SessionRecord>(
+            predicate: #Predicate<SessionRecord> { $0.endedAt != nil && !$0.isDiscarded },
+            sortBy: [SortDescriptor(\.startedAt, order: .reverse)]
+        )
+        return try? context.fetch(descriptor).first
     }
 
     // MARK: 记录管理
@@ -181,7 +255,7 @@ final class SessionJournal {
             (12, 7, 0, 3600, "natural"),     // 12 天前 · 60 分
             (40, 7, 30, 1200, "natural"),    // 上个月 · 20 分（月份切换验证）
         ]
-        for (day, hour, minute, seconds, reason) in plan {
+        for (index, (day, hour, minute, seconds, reason)) in plan.enumerated() {
             let started = at(day, hour, minute)
             let record = SessionRecord(
                 startedAt: started,
@@ -195,9 +269,40 @@ final class SessionJournal {
             record.billableSeconds = seconds
             record.endReason = reason
             context.insert(record)
+            // 演示体征样本：模拟手表静息采样节奏（心率 5-10 分钟一条、HRV 更稀疏），
+            // 覆盖三种呈现态 —— series（4 点）/ series（2 点）/ single（1 点）/ hidden（无）
+            seedVitals(for: record, plan: Self.vitalPlans[index])
         }
         save()
         dbgLog("[seed] demo records inserted")
+    }
+
+    /// 与 seedDemoRecords 的 plan 按下标对应的体征样本（offset 相对会话开始）。
+    private static let vitalPlans: [[(VitalKind, TimeInterval, Double)]] = [
+        // 0 · 今天 25 分：心率 4 条（series）+ HRV 2 条（series）
+        [(.heartRate, 120, 64), (.heartRate, 540, 60), (.heartRate, 960, 59), (.heartRate, 1380, 58),
+         (.hrvSDNN, 480, 42), (.hrvSDNN, 1200, 38)],
+        // 1 · 今天 8 分：心率 2 条（series）
+        [(.heartRate, 60, 68), (.heartRate, 240, 66)],
+        // 2 · 昨天 20 分：心率 1 条（single）
+        [(.heartRate, 600, 62)],
+        // 3 起：无样本（hidden）
+        [], [], [], [], [], [], [],
+    ]
+
+    private func seedVitals(for record: SessionRecord, plan: [(VitalKind, TimeInterval, Double)]) {
+        for (index, item) in plan.enumerated() {
+            let reading = VitalReading(
+                kind: item.0,
+                value: item.2,
+                startDate: record.startedAt.addingTimeInterval(item.1),
+                endDate: record.startedAt.addingTimeInterval(item.1),
+                sourceID: "seed:\(record.id.uuidString):\(index)"
+            )
+            let row = VitalRecord(reading: reading)
+            row.session = record
+            context.insert(row)
+        }
     }
     #endif
 
@@ -216,11 +321,11 @@ final class SessionJournal {
         return try? context.fetch(descriptor).first(where: { $0.endedAt == nil })
     }
 
-    private func record(id: UUID) -> SessionRecord? {
+    /// 按 id 取记录（UI 层展示小结页用）。
+    func record(id: UUID) -> SessionRecord? {
         let descriptor = FetchDescriptor<SessionRecord>()
         return try? context.fetch(descriptor).first(where: { $0.id == id })
     }
-
     private func save() {
         do {
             try context.save()

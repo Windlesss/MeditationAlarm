@@ -22,6 +22,10 @@
 	<false/>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.lifestyle</string>
+	<key>NSHealthShareUsageDescription</key>
+	<string>冥想期间读取 Apple Watch 已记录的心率与 HRV，用于生成本次小结</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>冥想时长会写入「健康」App 的正念记录，方便你统一查看</string>
 	<key>NSSupportsLiveActivities</key>
 	<true/>
 	<key>UIBackgroundModes</key>

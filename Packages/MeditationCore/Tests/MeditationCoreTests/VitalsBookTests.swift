@@ -121,6 +121,15 @@ final class VitalsBookTests: XCTestCase {
                        "没有 HRV 数据时该区块必须整块隐藏")
     }
 
+    // MARK: 跨启动恢复预热
+
+    func testPrewarmBlocksAlreadyPersistedSamples() {
+        var book = VitalsBook()
+        book.prewarm(keys: ["u:hrv-1"])
+        XCTAssertFalse(book.ingest(reading(.hrvSDNN, value: 42, offset: 300, id: "hrv-1")))
+        XCTAssertTrue(book.isEmpty, "已入库的样本恢复后不得二次入库（唯一索引会冲突）")
+    }
+
     // MARK: 单位与文案
 
     func testUnits() {

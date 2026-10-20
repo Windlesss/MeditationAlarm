@@ -69,6 +69,27 @@ struct MeditationAlarmApp: App {
                 dbgLog("[selfTest] started, phase = \(controller.phase), islandActive = \(LiveActivityController.shared.isActive)")
             }
         }
+        // 长会话自测钩子：`-selfTestLong` 开一场 100 秒 / 间隔 30 秒 / 雨声的会话，
+        // 超过记录阈值 → 走「静默落库 + 正念写入 + 小结页」完整路径
+        // （35 秒的 -selfTest 只覆盖短会话弹框）。
+        if CommandLine.arguments.contains("-selfTestLong") {
+            Task { @MainActor in
+                try? await Task.sleep(nanoseconds: 2_000_000_000)
+                guard controller.phase == .idle else {
+                    dbgLog("[selfTestLong] skipped, phase = \(controller.phase)")
+                    return
+                }
+                dbgLog("[selfTestLong] starting")
+                controller.start(.init(
+                    plannedDuration: 100,
+                    interval: 30,
+                    chimeID: ChimeCatalog.default.id,
+                    endChimeID: ChimeCatalog.default.id,
+                    ambientID: "rain",
+                    wasAutoAdjusted: false
+                ))
+            }
+        }
         // 记录页验证钩子：`-seedRecords` 造 9 条跨日期的历史记录（含今天两条），
         // 用于不依赖真实冥想就能检查统计 / 日历热力图 / 列表 / 详情 / 删除。
         if CommandLine.arguments.contains("-seedRecords") {
@@ -89,6 +110,8 @@ struct MeditationAlarmApp: App {
                         case .active:
                             // 前台：停静音守护、清通知残留、恢复常亮、自愈实时活动
                             controller.enterForeground()
+                            // 正念写入前台重试：被拒 / 写失败的记录，在用户改主意授权后补写
+                            SessionJournal.shared.retryMindfulWrites()
                             // LA「结束」按钮的落点：intent 已把 App 带到前台并留下标志，
                             // 这里消费它 → 弹二次确认（用户 2026-10-20 决策）。
                             if MeditationEndIntent.consumePending(), controller.isActive {

@@ -180,7 +180,13 @@ final class SessionController {
 
         // 落 open 记录：结束前它一直带着时钟快照（暂停 / 继续时更新），
         // App 被杀后重启靠它恢复会话（restoreIfNeeded）。
-        SessionJournal.shared.begin(configuration: configuration)
+        let record = SessionJournal.shared.begin(configuration: configuration)
+
+        // 健康数据（第三阶段 v3a，用户 2026-10-20 决策：无开关、无配置、默认后台运行）：
+        // 首次会话开始请求授权（本地 UserDefaults 标记去重，只问一次）；
+        // 采样立即启动 —— 授权后样本自然流入，未授权则静默空转。
+        HealthKitService.shared.requestAuthorizationIfNeeded()
+        VitalSampler.shared.start(recordID: record.id, sessionStart: record.startedAt)
 
         // 通知已停用（2026-10-19 决策）：不申请权限、不排程，
         // 这里只清掉上一版可能残留的排程。
@@ -236,6 +242,8 @@ final class SessionController {
         AudioEngine.shared.playEndingChime(
             ChimeCatalog.resolve(endChimeID), volume: chimeVolume, style: style
         )
+        // 停止体征采样（已入库的样本不受影响）
+        VitalSampler.shared.stop()
         // 记录结算交给 journal（setup 是 setup，记录是记录）：够长静默落库，
         // 不够则挂起待用户决定，UI 层观察 journal.pendingConfirmation 弹框。
         SessionJournal.shared.finish(reason: reason, segments: segments)
@@ -322,6 +330,8 @@ final class SessionController {
             ambientVolume: record.ambientVolume
         )
         LiveActivityController.shared.start(clock: clock, summary: sessionSummary)
+        // 恢复的会话重新挂上采样器（库里已有去重键预热，只增量收新样本）
+        VitalSampler.shared.start(recordID: record.id, sessionStart: record.startedAt)
         syncIdleTimer()
         startUITimer()
         scheduleNextChime()

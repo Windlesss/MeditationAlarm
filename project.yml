@@ -52,6 +52,10 @@ targets:
       properties:
         com.apple.security.application-groups:
           - group.com.windlessd.MeditationAlarm
+        # HealthKit（第三阶段 v3a）：正念写入 + 心率/HRV 读取。
+        # background-delivery 供 HKObserverQuery 在 App 挂起时被新样本唤醒补录
+        com.apple.developer.healthkit: true
+        com.apple.developer.healthkit.background-delivery: true
     info:
       path: Support/App-Info.plist
       properties:
@@ -66,6 +70,10 @@ targets:
           - audio
         NSSupportsLiveActivities: true
         ITSAppUsesNonExemptEncryption: false
+        # HealthKit 用途说明（审核硬性要求）。文案遵守「不声称测量」原则：
+        # 我们读取 Apple Watch 已记录的数据，不能命令手表测一次
+        NSHealthUpdateUsageDescription: 冥想时长会写入「健康」App 的正念记录，方便你统一查看
+        NSHealthShareUsageDescription: 冥想期间读取 Apple Watch 已记录的心率与 HRV，用于生成本次小结
     settings:
       SWIFT_VERSION: "5.0"
       PRODUCT_NAME: MeditationAlarm
